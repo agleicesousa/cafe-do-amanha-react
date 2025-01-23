@@ -1,0 +1,11 @@
+footer {
+  background-color: bisque;
+}
+
+footer .titulo {
+  color: red;
+}
+
+footer p {
+  color: blue;
+}

@@ -1,0 +1,11 @@
+main {
+  background-color: aqua;
+}
+
+main .titulo {
+  color: black;
+}
+
+main p {
+  color: blue;
+}
