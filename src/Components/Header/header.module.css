@@ -1,11 +1,11 @@
 header {
-    background-color: burlywood;
+  background-color: burlywood;
 }
 
 header .titulo {
-    color: red;
+  color: red;
 }
 
 header p {
-    color: violet;
+  color: violet;
 }
