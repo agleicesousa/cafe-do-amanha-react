@@ -5,3 +5,9 @@
   list-style: none;
   text-decoration: none;
 }
+
+:root {
+  --text-color: #4a2c2a;
+  --bg-primary-color: #8b5e3c;
+  --bg-secondary-color: #f3e9e1;
+}
