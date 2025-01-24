@@ -6,6 +6,7 @@ import Contatos from "./Pages/Contatos/contatos";
 import Historias from "./Pages/Historias/historias";
 import Inicio from "./Pages/Inicio/inicio";
 import Menu from "./Pages/Menu/menu";
+import Pedidos from "./Pages/pedidos/pedidos";
 import SobreNos from "./Pages/SobreNos/sobreNos";
 import Footer from "./Components/Footer/footer";
 
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/historias" element={<Historias />} />
         <Route path="/" element={<Inicio />} />
         <Route path="/menu" element={<Menu />} />
+        <Route path="/pedidos" element={<Pedidos />} />
         <Route path="/sobre-nos" element={<SobreNos />} />
       </Routes>
       <Footer />
