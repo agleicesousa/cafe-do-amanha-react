@@ -1,6 +1,7 @@
+import PropTypes from "prop-types";
 import s from "./Modal.module.css";
 
-export default function Modal() {
+export default function Modal({ closeModal }) {
   return (
     <section className={s.modal}>
       <section className={s.container_modal} id="modal">
@@ -27,7 +28,7 @@ export default function Modal() {
               <input type="number" name="quantidade" id="quantidade" />
             </section>
             <section className={s.btn_modal}>
-              <button className={s.btn_cancelar}>Cancelar</button>
+              <button className={s.btn_cancelar} onClick={closeModal}>Cancelar</button>
               <button className={s.btn_adicionar}>Adicionar ao pedido</button>
             </section>
           </div>
@@ -36,3 +37,8 @@ export default function Modal() {
     </section>
   );
 }
+
+// Adiciona validação de tipos para a prop `closeModal`
+Modal.propTypes = {
+  closeModal: PropTypes.func.isRequired,
+};

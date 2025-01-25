@@ -1,6 +1,14 @@
+import { useState } from "react";
 import s from "./pedidos.module.css";
+import Modal from "../../Components/Modal/Modal";
 
 export default function Pedidos() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  // Funções para abrir e fechar o modal
+  const openModal = () => setIsModalVisible(true);
+  const closeModal = () => setIsModalVisible(false);
+
   return (
     <>
       <main className={s.main_pedidos}>
@@ -20,15 +28,15 @@ export default function Pedidos() {
 
             <div className={s.produtos_pedidos}>
               <section className={s.section_produtos}>
-                <button className={s.btn_produtos}>Cafés</button>
-                <button className={s.btn_produtos}>Sobremesas</button>
+                <button className={s.btn_produtos} onClick={openModal}>Cafés</button>
+                <button className={s.btn_produtos} onClick={openModal}>Sobremesas</button>
               </section>
               <section className={s.section_produtos}>
-                <button className={s.btn_produtos}>Especiais</button>
-                <button className={s.btn_produtos}>Bebidas</button>
+                <button className={s.btn_produtos} onClick={openModal}>Especiais</button>
+                <button className={s.btn_produtos} onClick={openModal}>Bebidas</button>
               </section>
               <section className={s.section_produtos}>
-                <button className={s.btn_produtos}>Chás</button>
+                <button className={s.btn_produtos} onClick={openModal}>Chás</button>
               </section>
             </div>
 
@@ -42,6 +50,11 @@ export default function Pedidos() {
           </section>
         </section>
       </main>
+
+      {/* Renderiza o Modal se isModalVisible for true */}
+      {isModalVisible && (
+        <Modal closeModal={closeModal} />
+      )}
     </>
   );
 }
