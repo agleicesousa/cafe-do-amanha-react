@@ -2,5 +2,5 @@
 ***Agleice, Steicie, Kauan e Rafael***. 
 Este projeto representa o compromisso do grupo com o aprendizado, aplicando na prática os conhecimentos adquiridos ao longo do curso
 
-<h1>Contato</h1>
+<h3>Contato</h3>
 
