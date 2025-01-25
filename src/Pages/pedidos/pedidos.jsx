@@ -3,7 +3,7 @@ import s from "./pedidos.module.css";
 export default function Pedidos() {
   return (
     <>
-      <main className={s.main_pedidos}>
+      <main className={s.main_pedidos} style={{ display: "none" }}>
         <section className={s.section_pedidos}>
           <h1 className={s.titulo_pedidos}>Faça seu pedido</h1>
           <section className={s.container_pedidos}>
@@ -42,6 +42,42 @@ export default function Pedidos() {
           </section>
         </section>
       </main>
+
+      <section className={s.modal}>
+        <section className={s.container_modal} id="modal">
+          <section className={s.section_modal}>
+            <div className={s.titulo_modal}>
+              <h1>Selecione o ítem e a quantidade</h1>
+            </div>
+            <div className={s.produtos_modal}>
+              <section>
+                <div className={s.item_modal}>
+                  <h2>Item:</h2>
+                  <form action="itens">
+                    <select name="itens" id="itens">
+                      <option value="cafe">Café</option>
+                      <option value="sobremesa">Sobremesa</option>
+                      <option value="especial">Especial</option>
+                      <option value="bebida">Bebida</option>
+                      <option value="chas">Chás</option>
+                    </select>
+                  </form>
+                </div>
+              </section>
+              <section>
+                <div className={s.quantidade_modal}>
+                  <h2>Quantidade:</h2>
+                  <input type="number" name="quantidade" id="quantidade" />
+                </div>
+              </section>
+              <section className={s.btn_modal}>
+                <button className={s.btn_finalizar}>Finalizar Pedido</button>
+                <button className={s.btn_cancelar}>Cancelar Pedido</button>
+              </section>
+            </div>
+          </section>
+        </section>
+      </section>
     </>
   );
 }
