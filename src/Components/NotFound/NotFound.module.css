@@ -9,21 +9,21 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-}
 
-.container_notFound section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-}
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
 
-.container_notFound section h1 {
-  font-size: 6rem;
-  color: var(--text-color);
-}
+    h1 {
+      font-size: 6rem;
+      color: var(--text-color);
+    }
 
-.container_notFound section p {
-  font-size: 2rem;
-  color: var(--text-color);
+    p {
+      font-size: 2rem;
+      color: var(--text-color);
+    }
+  }
 }
