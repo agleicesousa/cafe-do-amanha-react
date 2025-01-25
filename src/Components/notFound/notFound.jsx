@@ -4,8 +4,8 @@ export default function NotFound() {
   return (
     <main className={s.container_notFound}>
       <section>
-        <h1>Página Não Encontrada</h1>
-        <p>Ops! A página que você está procurando não existe.</p>
+        <h1>404</h1>
+        <p>Ops! Página não encontrada.</p>
       </section>
     </main>
   );
