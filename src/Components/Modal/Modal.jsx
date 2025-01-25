@@ -3,26 +3,54 @@ import s from "./Modal.module.css";
 import { useState } from "react";
 
 export default function Modal({ closeModal, menuItems, addItemToPedido }) {
+  const [selectedItems, setSelectedItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState("");
   const [quantidade, setQuantidade] = useState(1);
 
-  const handleAddItem = () => {
-    addItemToPedido(selectedItem, quantidade);
+  const addItem = () => {
+    if (selectedItem && quantidade > 0) {
+      const itemPrice = menuItems[selectedItem];
+      const itemTotal = itemPrice * quantidade;
+      const itemIndex = selectedItems.findIndex((item) => item.item === selectedItem);
+
+      if (itemIndex !== -1) {
+        const updatedItems = [...selectedItems];
+        updatedItems[itemIndex].quantidade += quantidade;
+        updatedItems[itemIndex].itemTotal += itemTotal;
+        setSelectedItems(updatedItems);
+      } else {
+        setSelectedItems((prevItems) => [
+          ...prevItems,
+          { item: selectedItem, quantidade, itemTotal },
+        ]);
+      }
+
+      setSelectedItem("");
+      setQuantidade(1);
+    }
+  };
+
+  const confirmItems = () => {
+    selectedItems.forEach(({ item, quantidade }) => {
+      addItemToPedido(item, quantidade);
+    });
+    closeModal();
   };
 
   return (
     <section className={s.modal}>
       <section className={s.container_modal} id="modal">
         <section className={s.section_modal}>
-          <h2>Selecione o ítem e a quantidade</h2>
+          <h2>Selecione os itens e as quantidades</h2>
           <div className={s.produtos_modal}>
             <section className={s.section_produtos_modal}>
               <div className={s.item_modal}>
                 <h3>Item:</h3>
                 <form action="itens">
-                  <select 
-                    name="itens" 
+                  <select
+                    name="itens"
                     id="itens"
+                    value={selectedItem}
                     onChange={(e) => setSelectedItem(e.target.value)}
                   >
                     <option value="">Selecione um item</option>
@@ -37,20 +65,42 @@ export default function Modal({ closeModal, menuItems, addItemToPedido }) {
             </section>
             <section className={s.section_quantidade_modal}>
               <h3>Quantidade:</h3>
-              <input 
-                type="number" 
-                name="quantidade" 
-                id="quantidade" 
-                value={quantidade} 
-                onChange={(e) => setQuantidade(Number(e.target.value))} 
+              <input
+                type="number"
+                name="quantidade"
+                id="quantidade"
+                value={quantidade}
+                onChange={(e) => setQuantidade(Number(e.target.value))}
                 min="1"
               />
             </section>
-            <section className={s.btn_modal}>
-              <button className={s.btn_cancelar} onClick={closeModal}>Cancelar</button>
-              <button className={s.btn_adicionar} onClick={handleAddItem}>Adicionar ao pedido</button>
-            </section>
           </div>
+
+          {/* Lista de itens adicionados */}
+          {selectedItems.length > 0 && (
+            <div className={s.lista_itens_modal}>
+              <h3>Itens adicionados:</h3>
+              <ul>
+                {selectedItems.map((item, index) => (
+                  <li key={index}>
+                    {item.quantidade}x {item.item} - R$ {item.itemTotal.toFixed(2)}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <section className={s.btn_modal}>
+            <button className={s.btn_cancelar} onClick={closeModal}>
+              Cancelar
+            </button>
+            <button className={s.btn_confirmar} onClick={confirmItems}>
+              Adicionar ao Pedido
+            </button>
+            <button className={s.btn_add_item} onClick={addItem}>
+                Adicionar Item
+            </button>
+          </section>
         </section>
       </section>
     </section>
