@@ -6,15 +6,14 @@ export default function Pedidos() {
       <section className={s.section_pedidos}>
         <h1 className={s.titulo_pedidos}>Faça seu pedido</h1>
         <section className={s.container_pedidos}>
-
           <div className={s.cliente_pedidos}>
             <section className={s.section_name}>
               <label htmlFor="name">Nome:</label>
-              <input id="name" className={s.input_name} type="text" name="name" />
+              <input id="name" type="text" name="name" />
             </section>
             <section className={s.section_mesa}>
               <label htmlFor="mesa">Número da mesa:</label>
-              <input id="mesa" className={s.input_mesa} type="number" name="mesa" />
+              <input id="mesa" type="number" name="mesa" />
             </section>
           </div>
 
@@ -25,21 +24,20 @@ export default function Pedidos() {
             </section>
             <section className={s.section_produtos}>
               <button className={s.btn_produtos}>Especiais</button>
-              <button className={s.btn_produtos}>Bebidas Geladas</button>
+              <button className={s.btn_produtos}>Bebidas</button>
             </section>
             <section className={s.section_produtos}>
               <button className={s.btn_produtos}>Chás</button>
             </section>
           </div>
 
-          <div className={s.total_pedidos}> 
+          <div className={s.total_pedidos}>
             <section className={s.section_total}>
               <h2>Total:</h2>
               <h2>R$ 0</h2>
             </section>
             <button className={s.btn_total}>Finalizar Pedido</button>
           </div>
-          
         </section>
       </section>
     </main>
