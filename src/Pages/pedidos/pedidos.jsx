@@ -3,7 +3,7 @@ import s from "./pedidos.module.css";
 export default function Pedidos() {
   return (
     <>
-      <main className={s.main_pedidos} style={{ display: "none" }}>
+      <main className={s.main_pedidos}>
         <section className={s.section_pedidos}>
           <h1 className={s.titulo_pedidos}>Faça seu pedido</h1>
           <section className={s.container_pedidos}>
@@ -46,15 +46,14 @@ export default function Pedidos() {
       <section className={s.modal}>
         <section className={s.container_modal} id="modal">
           <section className={s.section_modal}>
-            <div className={s.titulo_modal}>
-              <h1>Selecione o ítem e a quantidade</h1>
-            </div>
+            <h2>Selecione o ítem e a quantidade</h2>
             <div className={s.produtos_modal}>
-              <section>
+              <section className={s.section_produtos_modal}>
                 <div className={s.item_modal}>
-                  <h2>Item:</h2>
+                  <h3>Item:</h3>
                   <form action="itens">
                     <select name="itens" id="itens">
+                      <option value="selecione">Selecione um item</option>
                       <option value="cafe">Café</option>
                       <option value="sobremesa">Sobremesa</option>
                       <option value="especial">Especial</option>
@@ -64,15 +63,13 @@ export default function Pedidos() {
                   </form>
                 </div>
               </section>
-              <section>
-                <div className={s.quantidade_modal}>
-                  <h2>Quantidade:</h2>
-                  <input type="number" name="quantidade" id="quantidade" />
-                </div>
+              <section className={s.section_quantidade_modal}>
+                <h3>Quantidade:</h3>
+                <input type="number" name="quantidade" id="quantidade" />
               </section>
               <section className={s.btn_modal}>
-                <button className={s.btn_finalizar}>Finalizar Pedido</button>
-                <button className={s.btn_cancelar}>Cancelar Pedido</button>
+                <button className={s.btn_cancelar}>Cancelar</button>
+                <button className={s.btn_adicionar}>Adicionar ao pedido</button>
               </section>
             </div>
           </section>
