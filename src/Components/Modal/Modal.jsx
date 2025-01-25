@@ -1,7 +1,15 @@
 import PropTypes from "prop-types";
 import s from "./Modal.module.css";
+import { useState } from "react";
 
-export default function Modal({ closeModal, menuItems }) {
+export default function Modal({ closeModal, menuItems, addItemToPedido }) {
+  const [selectedItem, setSelectedItem] = useState("");
+  const [quantidade, setQuantidade] = useState(1);
+
+  const handleAddItem = () => {
+    addItemToPedido(selectedItem, quantidade);
+  };
+
   return (
     <section className={s.modal}>
       <section className={s.container_modal} id="modal">
@@ -12,8 +20,12 @@ export default function Modal({ closeModal, menuItems }) {
               <div className={s.item_modal}>
                 <h3>Item:</h3>
                 <form action="itens">
-                  <select name="itens" id="itens">
-                    <option value="selecione">Selecione um item</option>
+                  <select 
+                    name="itens" 
+                    id="itens"
+                    onChange={(e) => setSelectedItem(e.target.value)}
+                  >
+                    <option value="">Selecione um item</option>
                     {Object.keys(menuItems).map((item) => (
                       <option key={item} value={item}>
                         {item} - R$ {menuItems[item].toFixed(2)}
@@ -25,11 +37,18 @@ export default function Modal({ closeModal, menuItems }) {
             </section>
             <section className={s.section_quantidade_modal}>
               <h3>Quantidade:</h3>
-              <input type="number" name="quantidade" id="quantidade" />
+              <input 
+                type="number" 
+                name="quantidade" 
+                id="quantidade" 
+                value={quantidade} 
+                onChange={(e) => setQuantidade(Number(e.target.value))} 
+                min="1"
+              />
             </section>
             <section className={s.btn_modal}>
               <button className={s.btn_cancelar} onClick={closeModal}>Cancelar</button>
-              <button className={s.btn_adicionar}>Adicionar ao pedido</button>
+              <button className={s.btn_adicionar} onClick={handleAddItem}>Adicionar ao pedido</button>
             </section>
           </div>
         </section>
@@ -41,4 +60,5 @@ export default function Modal({ closeModal, menuItems }) {
 Modal.propTypes = {
   closeModal: PropTypes.func.isRequired,
   menuItems: PropTypes.object.isRequired,
+  addItemToPedido: PropTypes.func.isRequired,
 };

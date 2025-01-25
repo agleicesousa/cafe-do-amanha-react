@@ -4,46 +4,48 @@ import Modal from "../../Components/Modal/Modal";
 
 const menuItems = {
   cafes: {
-    'Águas de Março': 5.00,
-    'Sampa': 6.50,
-    'Garota de Ipanema': 7.00,
-    'Chega de Saudade': 6.00,
-    'Carinhoso': 8.00,
-    'Cappuccino Malandragem': 9.00,
+    "Águas de Março": 5.0,
+    "Sampa": 6.5,
+    "Garota de Ipanema": 7.0,
+    "Chega de Saudade": 6.0,
+    "Carinhoso": 8.0,
+    "Cappuccino Malandragem": 9.0,
   },
   sobremesas: {
-    'Doce de Maracujá': 8.00,
-    'Romeu e Julieta': 9.00,
-    'Chão de Giz': 10.00,
-    'Bolinho de Chuva': 6.50,
-    'Coração Bobo': 7.50,
-    'Pettit Gateau Ilegais': 12.00,
+    "Doce de Maracujá": 8.0,
+    "Romeu e Julieta": 9.0,
+    "Chão de Giz": 10.0,
+    "Bolinho de Chuva": 6.5,
+    "Coração Bobo": 7.5,
+    "Pettit Gateau Ilegais": 12.0,
   },
   especiais: {
-    'Tarde em Itapoã': 12.00,
-    'O Canto da Cidade': 10.00,
-    'Fora da Ordem': 11.50,
-    'O Leãozinho': 9.50,
+    "Tarde em Itapoã": 12.0,
+    "O Canto da Cidade": 10.0,
+    "Fora da Ordem": 11.5,
+    "O Leãozinho": 9.5,
   },
   bebidasGeladas: {
-    'Sorvete de Baunilha': 7.00,
-    'Milk Shake de Chocolate': 10.00,
-    'Milk Shake de Morango': 10.00,
-    'Vitamina de Banana': 8.00,
-    'Vitamina de Morango': 8.50,
+    "Sorvete de Baunilha": 7.0,
+    "Milk Shake de Chocolate": 10.0,
+    "Milk Shake de Morango": 10.0,
+    "Vitamina de Banana": 8.0,
+    "Vitamina de Morango": 8.5,
   },
   chas: {
-    'Chá de Hortelã': 4.50,
-    'Chá Verde': 5.00,
-    'Chá de Camomila': 4.50,
-    'Chá de Frutas Vermelhas': 6.00,
-    'Chá de Gengibre e Limão': 5.50,
-  }
+    "Chá de Hortelã": 4.5,
+    "Chá Verde": 5.0,
+    "Chá de Camomila": 4.5,
+    "Chá de Frutas Vermelhas": 6.0,
+    "Chá de Gengibre e Limão": 5.5,
+  },
 };
 
 export default function Pedidos() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [pedido, setPedido] = useState([]);
+  const [total, setTotal] = useState(0);
 
   // Funções para abrir e fechar o modal
   const openModal = (category) => {
@@ -51,6 +53,19 @@ export default function Pedidos() {
     setIsModalVisible(true);
   };
   const closeModal = () => setIsModalVisible(false);
+
+  const addItemToPedido = (item, quantidade) => {
+    if (item && quantidade > 0) {
+      const itemPrice = menuItems[selectedCategory][item];
+      const itemTotal = itemPrice * quantidade;
+      setPedido((prevPedido) => [
+        ...prevPedido,
+        { item, quantidade, itemTotal },
+      ]);
+      setTotal((prevTotal) => prevTotal + itemTotal);
+    }
+    closeModal();
+  };
 
   return (
     <>
@@ -71,22 +86,61 @@ export default function Pedidos() {
 
             <div className={s.produtos_pedidos}>
               <section className={s.section_produtos}>
-                <button className={s.btn_produtos} onClick={() => openModal("cafes")}>Cafés</button>
-                <button className={s.btn_produtos} onClick={() => openModal("sobremesas")}>Sobremesas</button>
+                <button
+                  className={s.btn_produtos}
+                  onClick={() => openModal("cafes")}
+                >
+                  Cafés
+                </button>
+                <button
+                  className={s.btn_produtos}
+                  onClick={() => openModal("sobremesas")}
+                >
+                  Sobremesas
+                </button>
               </section>
               <section className={s.section_produtos}>
-                <button className={s.btn_produtos} onClick={() => openModal("especiais")}>Especiais</button>
-                <button className={s.btn_produtos} onClick={() => openModal("bebidasGeladas")}>Bebidas</button>
+                <button
+                  className={s.btn_produtos}
+                  onClick={() => openModal("especiais")}
+                >
+                  Especiais
+                </button>
+                <button
+                  className={s.btn_produtos}
+                  onClick={() => openModal("bebidasGeladas")}
+                >
+                  Bebidas
+                </button>
               </section>
               <section className={s.section_produtos}>
-                <button className={s.btn_produtos} onClick={() => openModal("chas")}>Chás</button>
+                <button
+                  className={s.btn_produtos}
+                  onClick={() => openModal("chas")}
+                >
+                  Chás
+                </button>
               </section>
+            </div>
+
+            <div className={s.itens_pedido}>
+              <h2>Itens no pedido:</h2>
+              <div className={s.lista_itens}>
+                <ul>
+                  {pedido.map((item, index) => (
+                    <li key={index}>
+                      {item.quantidade}x {item.item} - R${" "}
+                      {item.itemTotal.toFixed(2)}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
 
             <div className={s.total_pedidos}>
               <section className={s.section_total}>
                 <h2>Total:</h2>
-                <h2>R$ 0</h2>
+                <h2>R$ {total.toFixed(2)}</h2>
               </section>
               <button className={s.btn_total}>Finalizar Pedido</button>
             </div>
@@ -96,7 +150,11 @@ export default function Pedidos() {
 
       {/* Renderiza o Modal se isModalVisible for true */}
       {isModalVisible && (
-        <Modal closeModal={closeModal} menuItems={menuItems[selectedCategory]} />
+        <Modal
+          closeModal={closeModal}
+          menuItems={menuItems[selectedCategory]}
+          addItemToPedido={addItemToPedido}
+        />
       )}
     </>
   );

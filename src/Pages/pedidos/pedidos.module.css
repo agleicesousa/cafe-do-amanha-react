@@ -4,7 +4,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 82vh;
+  height: 81.2vh;
 
   .section_pedidos {
     border-radius: 10px;
@@ -13,15 +13,15 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 95%;
+    height: 100%;
     width: 35%;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 
     .titulo_pedidos {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       font-weight: 600;
       color: var(--text-color);
-      height: 10%;
+      height: 5%;
       display: flex;
       align-items: center;
     }
@@ -45,7 +45,7 @@
           flex-direction: column;
           align-items: flex-start;
           width: 100%;
-          margin-bottom: 15px;
+          margin-bottom: 5px;
 
           label {
             font-size: 1.1rem;
@@ -77,14 +77,14 @@
         flex-direction: column;
         align-items: center;
         justify-content: space-between;
-        height: 35%;
+        height: 30%;
         width: 100%;
 
         .section_produtos {
           display: flex;
           justify-content: space-between;
           width: 100%;
-          margin-bottom: 10px;
+          margin-bottom: 5px;
 
           .btn_produtos {
             background: var(--bg-primary-color);
@@ -104,6 +104,32 @@
               transform: scale(1.05);
             }
           }
+        }
+      }
+
+      .itens_pedido {
+        margin-top: 10px;
+        width: 100%;
+        height: 35%;
+        display: flex;
+        flex-direction: column;
+
+        .lista_itens {
+          max-height: 100px;
+          overflow-y: auto;
+          border: 1px solid #ddd;
+          padding: 10px;
+          border-radius: 5px;
+        }
+
+        ul {
+          list-style-type: none;
+          padding: 0;
+          margin: 0;
+        }
+
+        li {
+          margin-bottom: 10px;
         }
       }
 
