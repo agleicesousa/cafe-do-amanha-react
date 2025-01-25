@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import s from "./Modal.module.css";
 
-export default function Modal({ closeModal }) {
+export default function Modal({ closeModal, menuItems }) {
   return (
     <section className={s.modal}>
       <section className={s.container_modal} id="modal">
@@ -14,11 +14,11 @@ export default function Modal({ closeModal }) {
                 <form action="itens">
                   <select name="itens" id="itens">
                     <option value="selecione">Selecione um item</option>
-                    <option value="cafe">Café</option>
-                    <option value="sobremesa">Sobremesa</option>
-                    <option value="especial">Especial</option>
-                    <option value="bebida">Bebida</option>
-                    <option value="chas">Chás</option>
+                    {Object.keys(menuItems).map((item) => (
+                      <option key={item} value={item}>
+                        {item} - R$ {menuItems[item].toFixed(2)}
+                      </option>
+                    ))}
                   </select>
                 </form>
               </div>
@@ -38,7 +38,7 @@ export default function Modal({ closeModal }) {
   );
 }
 
-// Adiciona validação de tipos para a prop `closeModal`
 Modal.propTypes = {
   closeModal: PropTypes.func.isRequired,
+  menuItems: PropTypes.object.isRequired,
 };
