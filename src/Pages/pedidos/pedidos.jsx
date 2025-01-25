@@ -46,6 +46,8 @@ export default function Pedidos() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [pedido, setPedido] = useState([]);
   const [total, setTotal] = useState(0);
+  const [nome, setNome] = useState("");
+  const [mesa, setMesa] = useState(0);
 
   // Funções para abrir e fechar o modal
   const openModal = (category) => {
@@ -70,6 +72,8 @@ export default function Pedidos() {
   const finalizarPedido = () => {
     setPedido([]);
     setTotal(0);
+    setNome("");
+    setMesa(0);
     alert("Pedido finalizado com sucesso!");
   };
 
@@ -82,11 +86,23 @@ export default function Pedidos() {
             <div className={s.cliente_pedidos}>
               <section className={s.section_name}>
                 <label htmlFor="name">Nome:</label>
-                <input id="name" type="text" name="name" />
+                <input
+                  id="name"
+                  type="text"
+                  name="name"
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
+                />
               </section>
               <section className={s.section_mesa}>
                 <label htmlFor="mesa">Número da mesa:</label>
-                <input id="mesa" type="number" name="mesa" />
+                <input
+                  id="mesa"
+                  type="number"
+                  name="mesa"
+                  value={mesa}
+                  onChange={(e) => setMesa(Number(e.target.value))}
+                />
               </section>
             </div>
 
