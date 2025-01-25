@@ -4,7 +4,7 @@
 Este projeto representa o compromisso do grupo com o aprendizado, aplicando na prática os conhecimentos adquiridos ao longo do curso
 
 <h3>:calling:Contato</h3>
-:globe_with_meridians: | Agleice : https://github.com/agleicesousa<br>
-:globe_with_meridians: | Steicie : https://github.com/Staici
+:globe_with_meridians: | <em><strong>Agleice</strong></em>: https://github.com/agleicesousa<br>
+:globe_with_meridians: | <em><strong>Steicie</strong></em: https://github.com/Staici
  
 
