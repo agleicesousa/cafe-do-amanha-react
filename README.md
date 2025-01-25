@@ -5,6 +5,6 @@ Este projeto representa o compromisso do grupo com o aprendizado, aplicando na p
 
 <h3>:calling:Contato</h3>
 :globe_with_meridians: | <em><strong>Agleice</strong></em>: https://github.com/agleicesousa<br>
-:globe_with_meridians: | <em><strong>Steicie</strong></em: https://github.com/Staici
+:globe_with_meridians: | <em><strong>Steicie</strong></em>: https://github.com/Staici
  
 
