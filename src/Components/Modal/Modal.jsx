@@ -91,14 +91,14 @@ export default function Modal({ closeModal, menuItems, addItemToPedido }) {
           )}
 
           <section className={s.btn_modal}>
-            <button className={s.btn_cancelar} onClick={closeModal}>
-              Cancelar
+            <button className={s.btn_add_item} onClick={addItem}>
+                Adicionar Item
             </button>
             <button className={s.btn_confirmar} onClick={confirmItems}>
               Adicionar ao Pedido
             </button>
-            <button className={s.btn_add_item} onClick={addItem}>
-                Adicionar Item
+            <button className={s.btn_cancelar} onClick={closeModal}>
+              Cancelar
             </button>
           </section>
         </section>

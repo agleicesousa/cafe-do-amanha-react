@@ -77,6 +77,13 @@ export default function Pedidos() {
     alert("Pedido finalizado com sucesso!");
   };
 
+  const cancelarPedido = () => {
+    setPedido([]);
+    setTotal(0);
+    setNome("");
+    setMesa(0);
+  };
+
   return (
     <>
       <main className={s.main_pedidos}>
@@ -164,9 +171,14 @@ export default function Pedidos() {
                 <h2>Total:</h2>
                 <h2>R$ {total.toFixed(2)}</h2>
               </section>
-              <button className={s.btn_total} onClick={finalizarPedido}>
-                Finalizar Pedido
-              </button>
+              <section className={s.section_total}>
+                <button className={s.btn_total} onClick={finalizarPedido}>
+                  Finalizar Pedido
+                </button>
+                <button className={s.btn_total} onClick={cancelarPedido}>
+                  Cancelar Pedido
+                </button>
+              </section>
             </div>
           </section>
         </section>
