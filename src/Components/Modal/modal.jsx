@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import s from "./Modal.module.css";
+import s from "./modal.module.css";
 import { useState } from "react";
 
 export default function Modal({ closeModal, menuItems, addItemToPedido }) {

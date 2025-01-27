@@ -4,7 +4,7 @@ import "./Components/GlobalStye/globalStye.css";
 
 import Header from "./Components/Header/header";
 import Footer from "./Components/Footer/footer";
-import NotFound from "./Components/NotFound/NotFound";
+import NotFound from "./Components/NotFound/notFound";
 
 import Contatos from "./Pages/Contatos/contatos";
 import Historias from "./Pages/Historias/historias";

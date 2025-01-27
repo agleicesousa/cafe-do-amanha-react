@@ -1,6 +1,6 @@
 import { useState } from "react";
 import s from "./pedidos.module.css";
-import Modal from "../../Components/Modal/Modal";
+import Modal from "../../Components/Modal/modal";
 
 const menuItems = {
   cafes: {
