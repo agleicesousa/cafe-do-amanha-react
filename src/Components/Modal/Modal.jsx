@@ -38,7 +38,7 @@ export default function Modal({ closeModal, menuItems, addItemToPedido }) {
   };
 
   return (
-    <section className={s.modal}>
+    <main className={s.modal}>
       <section className={s.container_modal} id="modal">
         <section className={s.section_modal}>
           <h2>Selecione os itens e as quantidades</h2>
@@ -103,7 +103,7 @@ export default function Modal({ closeModal, menuItems, addItemToPedido }) {
           </section>
         </section>
       </section>
-    </section>
+    </main>
   );
 }
 
