@@ -1,5 +1,5 @@
 import s from "./header.module.css";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Logo from "../../Assets/Coffee-logo.png";
 
 export default function Header() {
@@ -12,22 +12,52 @@ export default function Header() {
       <section className={s.nav_header}>
         <ul className={s.nav_menu}>
           <li>
-            <Link to="/">Inicio</Link>
+            <NavLink
+              to="/"
+              className={({ isActive }) => (isActive ? s.active : "")}
+            >
+              Inicio
+            </NavLink>
           </li>
           <li>
-            <Link to="/menu">Menu</Link>
+            <NavLink
+              to="/menu"
+              className={({ isActive }) => (isActive ? s.active : "")}
+            >
+              Menu
+            </NavLink>
           </li>
           <li>
-            <Link to="/pedidos">Pedidos</Link>
+            <NavLink
+              to="/pedidos"
+              className={({ isActive }) => (isActive ? s.active : "")}
+            >
+              Pedidos
+            </NavLink>
           </li>
           <li>
-            <Link to="/contatos">Contatos</Link>
+            <NavLink
+              to="/contatos"
+              className={({ isActive }) => (isActive ? s.active : "")}
+            >
+              Contatos
+            </NavLink>
           </li>
           <li>
-            <Link to="/historias">Histórias</Link>
+            <NavLink
+              to="/historias"
+              className={({ isActive }) => (isActive ? s.active : "")}
+            >
+              Histórias
+            </NavLink>
           </li>
           <li>
-            <Link to="/sobre-nos">Sobre Nós</Link>
+            <NavLink
+              to="/sobre-nos"
+              className={({ isActive }) => (isActive ? s.active : "")}
+            >
+              Sobre Nós
+            </NavLink>
           </li>
         </ul>
       </section>
