@@ -1,11 +1,17 @@
-footer {
-  background-color: bisque;
+.page-specific .s-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: #8b4513;
+  color: white;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 }
 
-footer .titulo {
-  color: red;
-}
-
-footer p {
-  color: blue;
+.page-specific {
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }

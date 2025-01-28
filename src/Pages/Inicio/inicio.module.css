@@ -1,3 +1,28 @@
-.container {
-    background-color: chocolate;
+.page-specific .s-main {
+    background-image: url('https://wallpapercave.com/wp/wp9278197.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    position: relative;
+}
+
+.page-specific .s-inicio__intro {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.page-specific .s-section {
+    margin-bottom: 40px;
+}
+
+.page-specific {
+    margin: 0;
+    padding: 0;
+    height: 100%;
 }
