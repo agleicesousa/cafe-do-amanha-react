@@ -2,17 +2,17 @@ import s from "./historias.module.css";
 
 export default function Historias() {
   return (
-    <main>
-      <h1 className={s.titulo}>Histórias</h1>
-      <div>
-        <h3 className={s.descubraText}>
+    <main className={s.main_historias}>
+      <h1 className={s.titulo_historias}>Histórias</h1>
+      <div className={s.descricao_historias}>
+        <h3>
           Descubra as histórias inspiradoras que fazem parte do Café do Amanhã.
           Desde as viagens aventureiras de Nanda até as serenatas à beira-mar de
           Junior, cada momento é uma celebração de suas paixões
         </h3>
       </div>
-      <div className={s.container}>
-        <div className={s.box}>
+      <div className={s.container_historias}>
+        <div className={s.box_historias_historias}>
           <h2>Rock nas estradas</h2>
           <h3>
             Nanda sempre teve uma alma inquieta, apaixonada por viagens e pela
@@ -25,7 +25,7 @@ export default function Historias() {
           </h3>
         </div>
 
-        <div className={s.box}>
+        <div className={s.box_historias}>
           <h2>MPB à Beira-mar</h2>
           <h3>
             Junior, por outro lado, encontra a verdadeira paz ao som das ondas
@@ -38,7 +38,7 @@ export default function Historias() {
           </h3>
         </div>
 
-        <div className={s.box}>
+        <div className={s.box_historias}>
           <h2>Um encontro de paixões</h2>
           <h3>
             Quando Nanda e Junior se conheceram, parecia que o destino havia
