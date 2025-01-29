@@ -12,7 +12,11 @@ export default function Menu() {
         <div className={s.lista_opcao_menu}>
           <nav>
             <ul>
-              <li>algo aqui</li>
+              <li><button>Cafés</button></li>
+              <li><button>Sobremesas</button></li>
+              <li><button>Especiais</button></li>
+              <li><button>Bebidas</button></li>
+              <li><button>Chás</button></li>
             </ul>
           </nav>
         </div>
