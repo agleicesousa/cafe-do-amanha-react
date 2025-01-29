@@ -32,6 +32,10 @@ export default function Pedidos() {
   };
 
   const finalizarPedido = () => {
+    if (!nome || !mesa) {
+      alert(" Nome e número da mesa são obrigatórios!");
+      return;
+    }
     setPedido([]);
     setTotal(0);
     setNome("");
@@ -61,6 +65,7 @@ export default function Pedidos() {
                   name="name"
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
+                  required
                 />
               </section>
               <section className={s.section_mesa}>
@@ -71,6 +76,7 @@ export default function Pedidos() {
                   name="mesa"
                   value={mesa}
                   onChange={(e) => setMesa(Number(e.target.value))}
+                  required
                 />
               </section>
             </div>
@@ -157,3 +163,4 @@ export default function Pedidos() {
     </>
   );
 }
+
