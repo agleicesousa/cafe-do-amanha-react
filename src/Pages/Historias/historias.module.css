@@ -1,11 +1,68 @@
-main {
-  background-color: aqua;
+.main_historias {
+  background-color: var(--bg-secondary-color);
+  height: 82.6vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color);
+  width: 100%;
 }
 
-main .titulo {
-  color: black;
+.titulo_historias {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 1.6rem;
+  font-weight: 700;
 }
 
-main p {
-  color: blue;
+.main_historias .descricao {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 82%;
+}
+
+.descricao h3 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 84%;
+}
+
+.container .box {
+  background-color: #fff;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  width: 30%;
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  margin-bottom: 10px;
+}
+
+.box:hover {
+  transform: translateY(-5px);
+}
+
+.box h2 {
+  font-size: 1.2rem;
+  padding: 5px 0;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.box h3 {
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 500;
 }
