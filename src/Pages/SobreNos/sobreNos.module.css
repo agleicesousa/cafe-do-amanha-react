@@ -1,11 +1,109 @@
-main {
-  background-color: aqua;
+.main {
+  background-color: #cfa17d;
+  display: flex;
+  flex-direction: column; /* Empilha os itens verticalmente */
+  justify-content: flex-start; /* Alinha os itens no topo */
+  align-items: center; /* Centraliza horizontalmente */
+  height: 82vh; /* Ocupa 100% da altura da tela */
+  overflow: hidden; /* Evita que o conteúdo ultrapasse os limites da tela */
+ /* Adiciona um pequeno espaçamento ao redor */
 }
 
-main .titulo {
-  color: black;
+.center {
+  margin-top:4%;
+  text-align: center;
+  color: #f3e9e1;
+  width: 60%; /* Define a largura do texto */
+  max-width: 800px; /* Limita a largura máxima */
+  margin-bottom: 2rem; /* Espaço entre o texto e o carrossel */
 }
 
-main p {
-  color: blue;
+.texto {
+  color: #f3e9e1;
+  width: 100%;
+  text-align: center; /* Centraliza o texto */
+  margin: 0 auto;
+  font-size: 1.2rem; /* Ajusta o tamanho do texto */
+}
+
+.container {/* Ajusta a largura do carrossel *//* Ajusta a altura do carrossel */
+  position: relative;
+  bottom: 90px;/* Espaço entre o texto e o carrossel */
+}
+/* Ajuste na animação para não ter espaço vazio no final */
+@keyframes slider {
+  0% { transform: translateX(0%); }
+  25% { transform: translateX(-100%); }
+  50% { transform: translateX(-200%); }
+  75% { transform: translateX(-300%); }
+  100% { transform: translateX(0%); }
+}
+
+/* Outras classes permanecem as mesmas */
+.sliderImg1 {
+  background-image: url("../../assets/img1c.webp");
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.sliderImg2 {
+  background-image: url("../../assets/img2c.jpg");
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.sliderImg3 {
+  background-image: url("../../assets/img3c.jpg");
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+}
+
+
+
+.container .wrapper {
+  width: 30vw;
+  height: 35vh;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.6);
+  margin: 5rem auto;
+  overflow: hidden;
+}
+
+.container .wrapper_holder {
+  display: grid;
+  grid-template-columns: repeat(4, 100%);
+  height: 100%;
+  width: 100%;
+  animation: slider 30s ease-in-out 1 normal forwards;
+}
+
+.container .button_holder {
+  position: absolute;
+  text-align: center;
+  left: 33%;
+  bottom:27%;
+}
+
+.container .button_holder .button {
+  background-color:transparent;
+  border: solid black;
+  width: 40px;
+  height: 10px;
+  cursor: pointer;
+  display: inline-block;
+  margin: .3rem;
+}
+
+legend{
+  background-color:rgba(0, 0, 0, 0.5);
+  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+  width:40%;
+  height:20%;
+  color: #f3e9e1;
+  left: 34%;
+  top:60%;
+
 }
