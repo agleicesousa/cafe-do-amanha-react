@@ -21,36 +21,31 @@ export default function Menu() {
     <main className={s.main_menu}>
       <section className={s.section_menu}>
         <h1 className={s.titulo_menu}>Café do Amanhã</h1>
-        <img src={mainImage.image} alt={mainImage.alt} />
+        <img className={s.img_menu} src={mainImage.image} alt={mainImage.alt} />
       </section>
       <section className={s.section_opcoes_menu}>
-        <nav className={s.nav_opcao_menu}>
-          <ul>
-            <li>
-              <button onClick={() => handleCategoryChange("cafes")}>
-                Cafés
-              </button>
-            </li>
-            <li>
-              <button onClick={() => handleCategoryChange("sobremesas")}>
-                Sobremesas
-              </button>
-            </li>
-            <li>
-              <button onClick={() => handleCategoryChange("especiais")}>
-                Especiais
-              </button>
-            </li>
-            <li>
-              <button onClick={() => handleCategoryChange("bebidasGeladas")}>
-                Bebidas
-              </button>
-            </li>
-            <li>
-              <button onClick={() => handleCategoryChange("chas")}>Chás</button>
-            </li>
-          </ul>
-        </nav>
+        <div className={s.opcoes_menu}>
+          <nav className={s.nav_opcao_menu}>
+            <ul>
+              {[
+                "cafes",
+                "sobremesas",
+                "especiais",
+                "bebidas Geladas",
+                "chas",
+              ].map((cat) => (
+                <li key={cat}>
+                  <button
+                    className={category === cat ? s.active : ""}
+                    onClick={() => handleCategoryChange(cat)}
+                  >
+                    {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
         <div className={s.lista_itens_menu}>
           {Object.keys(menuItems[category]).map((itemKey) => {
             const item = menuItems[category][itemKey];
