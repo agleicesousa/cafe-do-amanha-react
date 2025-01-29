@@ -11,7 +11,6 @@ import Historias from "./Pages/Historias/historias";
 import Inicio from "./Pages/Inicio/inicio";
 import Menu from "./Pages/Menu/menu";
 import Pedidos from "./Pages/pedidos/pedidos";
-import SobreNos from "./Pages/SobreNos/sobreNos";
 
 export default function App() {
   return (
@@ -23,7 +22,6 @@ export default function App() {
         <Route path="/" element={<Inicio />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/pedidos" element={<Pedidos />} />
-        <Route path="/sobre-nos" element={<SobreNos />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
