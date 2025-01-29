@@ -1,0 +1,168 @@
+{
+  "cafes": {
+    "Águas de Março": {
+      "id": 1,
+      "price": 5.0,
+      "image": "aguas_de_marco.jpg",
+      "alt": "Xícara de café preto fumegante"
+    },
+    "Sampa": {
+      "id": 2,
+      "price": 6.5,
+      "image": "sampa.jpg",
+      "alt": "Café expresso servido em uma xícara elegante"
+    },
+    "Garota de Ipanema": {
+      "id": 3,
+      "price": 7.0,
+      "image": "garota_de_ipanema.jpg",
+      "alt": "Café com leite servido com espuma cremosa"
+    },
+    "Chega de Saudade": {
+      "id": 4,
+      "price": 6.0,
+      "image": "chega_de_saudade.jpg",
+      "alt": "Café aromático com toque de canela"
+    },
+    "Carinhoso": {
+      "id": 5,
+      "price": 8.0,
+      "image": "carinhoso.jpg",
+      "alt": "Café especial com chantilly e raspas de chocolate"
+    },
+    "Cappuccino Malandragem": {
+      "id": 6,
+      "price": 9.0,
+      "image": "cappuccino_malandragem.jpg",
+      "alt": "Cappuccino decorado com cacau em pó"
+    }
+  },
+  "sobremesas": {
+    "Doce de Maracujá": {
+      "id": 7,
+      "price": 8.0,
+      "image": "doce_de_maracuja.jpg",
+      "alt": "Taça com mousse de maracujá e calda"
+    },
+    "Romeu e Julieta": {
+      "id": 8,
+      "price": 9.0,
+      "image": "romeu_e_julieta.jpg",
+      "alt": "Queijo com goiabada servido em uma elegante apresentação"
+    },
+    "Chão de Giz": {
+      "id": 9,
+      "price": 10.0,
+      "image": "chao_de_giz.jpg",
+      "alt": "Torta de chocolate com raspas de laranja"
+    },
+    "Bolinho de Chuva": {
+      "id": 10,
+      "price": 6.5,
+      "image": "bolinho_de_chuva.jpg",
+      "alt": "Bolinho de chuva polvilhado com açúcar e canela"
+    },
+    "Coração Bobo": {
+      "id": 11,
+      "price": 7.5,
+      "image": "coracao_bobo.jpg",
+      "alt": "Pudim de leite com calda caramelizada"
+    },
+    "Pettit Gateau Ilegais": {
+      "id": 12,
+      "price": 12.0,
+      "image": "petit_gateau_ilegais.jpg",
+      "alt": "Petit Gateau de chocolate com sorvete de creme"
+    }
+  },
+  "especiais": {
+    "Tarde em Itapoã": {
+      "id": 13,
+      "price": 12.0,
+      "image": "tarde_em_itapoa.jpg",
+      "alt": "Bebida especial com toque tropical"
+    },
+    "O Canto da Cidade": {
+      "id": 14,
+      "price": 10.0,
+      "image": "o_canto_da_cidade.jpg",
+      "alt": "Drink refrescante com frutas cítricas"
+    },
+    "Fora da Ordem": {
+      "id": 15,
+      "price": 11.5,
+      "image": "fora_da_ordem.jpg",
+      "alt": "Bebida artesanal com especiarias"
+    },
+    "O Leãozinho": {
+      "id": 16,
+      "price": 9.5,
+      "image": "o_leaozinho.jpg",
+      "alt": "Smoothie energético com banana e mel"
+    }
+  },
+  "bebidasGeladas": {
+    "Sorvete de Baunilha": {
+      "id": 17,
+      "price": 7.0,
+      "image": "sorvete_de_baunilha.jpg",
+      "alt": "Bola de sorvete de baunilha com calda"
+    },
+    "Milk Shake de Chocolate": {
+      "id": 18,
+      "price": 10.0,
+      "image": "milk_shake_chocolate.jpg",
+      "alt": "Milk shake de chocolate com chantilly"
+    },
+    "Milk Shake de Morango": {
+      "id": 19,
+      "price": 10.0,
+      "image": "milk_shake_morango.jpg",
+      "alt": "Milk shake de morango decorado com pedaços da fruta"
+    },
+    "Vitamina de Banana": {
+      "id": 20,
+      "price": 8.0,
+      "image": "vitamina_de_banana.jpg",
+      "alt": "Vitamina cremosa de banana"
+    },
+    "Vitamina de Morango": {
+      "id": 21,
+      "price": 8.5,
+      "image": "vitamina_de_morango.jpg",
+      "alt": "Vitamina de morango servida em copo alto"
+    }
+  },
+  "chas": {
+    "Chá de Hortelã": {
+      "id": 22,
+      "price": 4.5,
+      "image": "cha_de_hortela.jpg",
+      "alt": "Xícara de chá de hortelã com folhas frescas"
+    },
+    "Chá Verde": {
+      "id": 23,
+      "price": 5.0,
+      "image": "cha_verde.jpg",
+      "alt": "Chá verde servido em copo de vidro"
+    },
+    "Chá de Camomila": {
+      "id": 24,
+      "price": 4.5,
+      "image": "cha_de_camomila.jpg",
+      "alt": "Xícara de chá de camomila com flores secas"
+    },
+    "Chá de Frutas Vermelhas": {
+      "id": 25,
+      "price": 6.0,
+      "image": "cha_de_frutas_vermelhas.jpg",
+      "alt": "Chá frutado com frutas vermelhas frescas"
+    },
+    "Chá de Gengibre e Limão": {
+      "id": 26,
+      "price": 5.5,
+      "image": "cha_de_gengibre_e_limao.jpg",
+      "alt": "Chá quente com fatias de gengibre e limão"
+    }
+  }
+}
