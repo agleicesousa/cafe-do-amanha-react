@@ -56,14 +56,14 @@
   transform: translateY(-5px);
 }
 
-h2 {
+.box h2 {
   font-size: 1.3rem;
   color:  #4a2c2a;;
   margin-bottom: 10%;
   
 }
 
-h3 {
+.box h3 {
   font-size: 1rem;
   color:  #4a2c2a;;
   line-height: 1.5;
