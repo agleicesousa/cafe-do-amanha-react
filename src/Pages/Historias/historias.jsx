@@ -3,12 +3,12 @@ import s from "./historias.module.css";
 export default function Historias() {
   return (
     <main className={s.main_historias}>
-      <h1 className={s.titulo}>Histórias</h1>
-      <div>
-        <h3 className={s.descubraText}>
+      <h1 className={s.titulo_historias}>Histórias</h1>
+      <div className={s.descricao}>
+        <h3>
           Descubra as histórias inspiradoras que fazem parte do Café do Amanhã.
           Desde as viagens aventureiras de Nanda até as serenatas à beira-mar de
-          Junior, cada momento é uma celebração de suas paixões
+          Junior, cada momento é uma celebração de suas paixões.
         </h3>
       </div>
       <div className={s.container}>
