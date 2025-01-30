@@ -1,5 +1,4 @@
 import s from "./sobreNos.module.css";
-import image from "../../assets/img1c.webp"; 
 
 export default function SobreNos() {
   return (
