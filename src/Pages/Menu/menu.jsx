@@ -32,7 +32,7 @@ export default function Menu() {
                 "sobremesas",
                 "especiais",
                 "bebidas Geladas",
-                "chas",
+                "chás",
               ].map((cat) => (
                 <li key={cat}>
                   <button
