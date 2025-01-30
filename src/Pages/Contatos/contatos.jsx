@@ -30,26 +30,26 @@ export default function Contatos() {
   };
 
   return (
-    <main>
-      <h1 className={s.titulo}>Contatos</h1>
+    <main className={s.main_body}>
+      <h1 className={s.titulo}>Contato</h1>
       <h3>
         Estamos ansiosos para ouvir você! Entre em contato conosco através dos
         contatos abaixo ou envie-nos uma mensagem diretamente pelo formulário.
       </h3>
       <ul>
         <li>
-          <h3>Endereço: 738. AV.Beira Mar, Fortaleza, CE</h3>
+          <h3> <span className={s.Endereço}>Endereço:</span> 738. AV.Beira Mar, Fortaleza, CE</h3>
         </li>
         <li>
-          <h3>Telefone: (85) 1234-5678</h3>
+          <h3><span className={s.Telefone}>Telefone: </span>(85) 1234-5678</h3>
         </li>
         <li>
-          <h3>Email: contato@cafedoamanha.com</h3>
+          <h3><span className={s.Email}>Email:</span>contato@cafedoamanha.com</h3>
         </li>
       </ul>
 
       <form onSubmit={handleSubmit}>
-        <label htmlFor="nome">Nome</label>
+        <label htmlFor="nome">Nome:</label>
         <input
           type="text"
           id="nome"
@@ -57,16 +57,18 @@ export default function Contatos() {
           value={formData.nome}
           onChange={handleChange}
         />
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email">Email:</label>
         <input
           type="email"
           id="email"
           name="email"
           value={formData.email}
           onChange={handleChange}
+          
         />
-        <label htmlFor="mensagem">Mensagem</label>
+        <label htmlFor="mensagem">Mensagem:</label>
         <textarea
+          className={s.Mensagem}
           id="mensagem"
           name="mensagem"
           value={formData.mensagem}
