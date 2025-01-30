@@ -53,13 +53,13 @@
     "Bolinho de Chuva": {
       "id": 9,
       "price": 6.5,
-      "image": "https://encurtador.com.br/5fFgy",
+      "image": "https://24698e6a.delivery.rocketcdn.me/wp-content/uploads/2021/06/como-fazer-bolinho-de-chuva-8.jpg",
       "alt": "Bolinho de chuva polvilhado com açúcar e canela"
     },
     "Pudim de Leite": {
       "id": 10,
       "price": 7.5,
-      "image": "https://i.pinimg.com/736x/68/b1/09/68b109fd125718da3896998939f19c0b.jpg",
+      "image": "https://tse1.mm.bing.net/th?id=OIG1.MW4f40YOp0616OnbDkUP&pid=ImgGn",
       "alt": "Pudim de leite com calda caramelizada"
     }
   },
@@ -91,7 +91,7 @@
     "Suco Detox": {
       "id": 15,
       "price": 6.0,
-      "image": "https://cloudfront-us-east-1.images.arcpublishing.com/estadao/UHU2VYAYJJENLC27TO557JKBDY.png",
+      "image": "https://tse4.mm.bing.net/th?id=OIG3.SOK5cCaGiZV95xJL7047&pid=ImgGn",
       "alt": "Copo de suco detox verde"
     }
   },
@@ -99,7 +99,7 @@
     "Sorvete de Baunilha": {
       "id": 16,
       "price": 7.0,
-      "image": "https://catracalivre.com.br/cdn-cgi/image/f=auto,q=60,w=964,h=360,fit=cover/wp-content/uploads/2023/08/istock-1326143969.jpg",
+      "image": "https://tse4.mm.bing.net/th?id=OIG3.4a2.I4XdXs.v.22YYsOh&pid=ImgGn",
       "alt": "Bola de sorvete de baunilha com calda"
     },
     "MilkShake de Chocolate": {
@@ -117,13 +117,13 @@
     "Vitamina de Banana": {
       "id": 19,
       "price": 8.0,
-      "image": "https://espaconatelie.com.br/wp-content/uploads/2024/03/vitamina-de-banana.jpg",
+      "image": "https://tse1.mm.bing.net/th?id=OIG4.2SwBBebtLBo0CfhCoXnL&pid=ImgGn",
       "alt": "Vitamina cremosa de banana"
     },
     "Vitamina de Morango": {
       "id": 20,
       "price": 8.5,
-      "image": "https://encurtador.com.br/kEpBa",
+      "image": "https://tse1.mm.bing.net/th?id=OIG1.P2A6gTHEM5RQe42tOEts&pid=ImgGn",
       "alt": "Vitamina de morango servida em copo alto"
     }
   },
@@ -131,31 +131,31 @@
     "Chá de Hortelã": {
       "id": 21,
       "price": 4.5,
-      "image": "https://shre.ink/bALa",
+      "image": "https://tse4.mm.bing.net/th?id=OIG3.rtPD7QcLyArXCzWJC.l5&pid=ImgGn",
       "alt": "Xícara de chá de hortelã com folhas frescas"
     },
     "Chá Verde": {
       "id": 22,
       "price": 5.0,
-      "image": "https://www.bcnoticias.com.br/wp-content/uploads/2024/11/cha-verde-619x570.webp",
+      "image": "https://tse3.mm.bing.net/th?id=OIG1.zArRsBUw7FwyHlGAfSSi&pid=ImgGn",
       "alt": "Chá verde servido em copo de vidro"
     },
     "Chá de Camomila": {
       "id": 23,
       "price": 4.5,
-      "image": "https://shre.ink/bAL9",
-      "alt": "Xícara de chá de camomila com flores secas"
+      "image": "https://tse1.mm.bing.net/th?id=OIG4.zPt6.RI5eqNrB3a6XfFw&pid=ImgGn",
+      "alt": "Xícara de chá de camomila com flores frescas"
     },
     "Chá de Frutas Vermelhas": {
       "id": 24,
       "price": 6.0,
-      "image": "https://shre.ink/bALn",
+      "image": "https://tse3.mm.bing.net/th?id=OIG1.ejNYNDRW42Cz0MFRMSZI&pid=ImgGn",
       "alt": "Chá frutado com frutas vermelhas frescas"
     },
     "Chá de Gengibre e Limão": {
       "id": 25,
       "price": 5.5,
-      "image": "https://shre.ink/bALm",
+      "image": "https://tse3.mm.bing.net/th?id=OIG4.dMg4YRGjV5TQUgR7thM3&pid=ImgGn",
       "alt": "Chá quente com fatias de gengibre e limão"
     }
   }
