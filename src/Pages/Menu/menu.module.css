@@ -1,11 +1,70 @@
-main {
+main{
   background-color: aqua;
 }
 
-main .titulo {
-  color: black;
+.main_menu{
+  background-color:#292727;
+  color:white;
+  font-family:Helvetica, sans-serif;
+}
+.section_menu{
+  text-align: center;
+}
+.img_menu{
+  width: 12%;
+  height: 20%;
+}
+.nav_opcao_menu ul {
+  display: flex; /* Alinha os itens lado a lado */
+  justify-content: center; /* Centraliza os botões */
+  padding: 0; /* Remove o padding padrão */
+  list-style: none; /* Remove os marcadores da lista */
 }
 
-main p {
-  color: blue;
+.nav_opcao_menu li {
+  margin: 0 10px; /* Adiciona espaçamento entre os botões */
 }
+
+.nav_opcao_menu button {
+  background-color: #f3e9e1;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.nav_opcao_menu button:hover {
+  background-color: #cfa17d;
+}
+
+.nav_opcao_menu .active {
+  background-color: #cfa17d; /* Destaque para a opção ativa */
+}
+
+.item_menu {
+  display: flex;
+  justify-content: space-between; /* Alinha título e preço */
+  align-items: center; /* Centraliza verticalmente */
+  padding: 10px;
+  border-bottom: 1px solid #444; /* Linha separadora opcional */
+  width: 100%;
+}
+
+.titulo_item {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0; /* Remove margem extra */
+}
+
+.preco_item {
+  color: #f3e9e1;
+  font-size: 16px;
+  font-weight: bold;
+  white-space: nowrap; /* Evita quebra de linha */
+  margin-left: auto; /* Empurra o preço para a direita */
+}
+
+
