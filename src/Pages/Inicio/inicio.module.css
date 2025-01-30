@@ -2,13 +2,13 @@
   background-image: url("https://wallpapercave.com/wp/wp9278197.jpg");
   background-size: cover;
   background-position: center;
-  height: 82.6vh;
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
   text-align: center;
   position: relative;
+  height: 100vh;
 }
 
 .section_inicio .inicio__intro {
