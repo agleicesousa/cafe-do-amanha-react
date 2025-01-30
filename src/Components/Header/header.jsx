@@ -1,6 +1,6 @@
 import s from "./header.module.css";
 import { NavLink } from "react-router-dom";
-import Logo from "../../Assets/Coffee-logo.png";
+import Logo from "/assets/Coffee-logo.png";
 
 export default function Header() {
   return (

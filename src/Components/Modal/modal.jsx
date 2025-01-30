@@ -9,7 +9,7 @@ export default function Modal({ closeModal, menuItems, addItemToPedido }) {
 
   const addItem = () => {
     if (selectedItem && quantidade > 0) {
-      const itemPrice = menuItems[selectedItem];
+      const itemPrice = menuItems[selectedItem].price;
       const itemTotal = itemPrice * quantidade;
       const itemIndex = selectedItems.findIndex((item) => item.item === selectedItem);
 
@@ -56,7 +56,7 @@ export default function Modal({ closeModal, menuItems, addItemToPedido }) {
                     <option value="">Selecione um item</option>
                     {Object.keys(menuItems).map((item) => (
                       <option key={item} value={item}>
-                        {item} - R$ {menuItems[item].toFixed(2)}
+                        {item} - R$ {menuItems[item].price.toFixed(2)}
                       </option>
                     ))}
                   </select>
@@ -92,7 +92,7 @@ export default function Modal({ closeModal, menuItems, addItemToPedido }) {
 
           <section className={s.btn_modal}>
             <button className={s.btn_add_item} onClick={addItem}>
-                Adicionar Item
+              Adicionar Item
             </button>
             <button className={s.btn_confirmar} onClick={confirmItems}>
               Adicionar ao Pedido

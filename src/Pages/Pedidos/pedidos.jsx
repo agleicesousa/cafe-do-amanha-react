@@ -1,45 +1,7 @@
 import { useState } from "react";
 import s from "./pedidos.module.css";
 import Modal from "../../Components/Modal/modal";
-
-const menuItems = {
-  cafes: {
-    "Águas de Março": 5.0,
-    "Sampa": 6.5,
-    "Garota de Ipanema": 7.0,
-    "Chega de Saudade": 6.0,
-    "Carinhoso": 8.0,
-    "Cappuccino Malandragem": 9.0,
-  },
-  sobremesas: {
-    "Doce de Maracujá": 8.0,
-    "Romeu e Julieta": 9.0,
-    "Chão de Giz": 10.0,
-    "Bolinho de Chuva": 6.5,
-    "Coração Bobo": 7.5,
-    "Pettit Gateau Ilegais": 12.0,
-  },
-  especiais: {
-    "Tarde em Itapoã": 12.0,
-    "O Canto da Cidade": 10.0,
-    "Fora da Ordem": 11.5,
-    "O Leãozinho": 9.5,
-  },
-  bebidasGeladas: {
-    "Sorvete de Baunilha": 7.0,
-    "Milk Shake de Chocolate": 10.0,
-    "Milk Shake de Morango": 10.0,
-    "Vitamina de Banana": 8.0,
-    "Vitamina de Morango": 8.5,
-  },
-  chas: {
-    "Chá de Hortelã": 4.5,
-    "Chá Verde": 5.0,
-    "Chá de Camomila": 4.5,
-    "Chá de Frutas Vermelhas": 6.0,
-    "Chá de Gengibre e Limão": 5.5,
-  },
-};
+import menuItems from "../../Mocks/menuItens.json";
 
 export default function Pedidos() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -58,7 +20,7 @@ export default function Pedidos() {
 
   const addItemToPedido = (item, quantidade) => {
     if (item && quantidade > 0) {
-      const itemPrice = menuItems[selectedCategory][item];
+      const itemPrice = menuItems[selectedCategory][item].price;
       const itemTotal = itemPrice * quantidade;
       setPedido((prevPedido) => [
         ...prevPedido,
@@ -70,6 +32,10 @@ export default function Pedidos() {
   };
 
   const finalizarPedido = () => {
+    if (!nome || !mesa) {
+      alert(" Nome e número da mesa são obrigatórios!");
+      return;
+    }
     setPedido([]);
     setTotal(0);
     setNome("");
@@ -99,6 +65,7 @@ export default function Pedidos() {
                   name="name"
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
+                  required
                 />
               </section>
               <section className={s.section_mesa}>
@@ -109,6 +76,7 @@ export default function Pedidos() {
                   name="mesa"
                   value={mesa}
                   onChange={(e) => setMesa(Number(e.target.value))}
+                  required
                 />
               </section>
             </div>
