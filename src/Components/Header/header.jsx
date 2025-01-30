@@ -51,14 +51,6 @@ export default function Header() {
               Histórias
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="/sobre-nos"
-              className={({ isActive }) => (isActive ? s.active : "")}
-            >
-              Sobre Nós
-            </NavLink>
-          </li>
         </ul>
       </section>
     </header>
