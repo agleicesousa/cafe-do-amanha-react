@@ -1,7 +1,3 @@
-main{
-  background-color: aqua;
-}
-
 .main_menu{
   background-color:#292727;
   color:white;
@@ -15,14 +11,14 @@ main{
   height: 20%;
 }
 .nav_opcao_menu ul {
-  display: flex; /* Alinha os itens lado a lado */
-  justify-content: center; /* Centraliza os botões */
-  padding: 0; /* Remove o padding padrão */
-  list-style: none; /* Remove os marcadores da lista */
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  list-style: none;
 }
 
 .nav_opcao_menu li {
-  margin: 0 10px; /* Adiciona espaçamento entre os botões */
+  margin: 0 10px;
 }
 
 .nav_opcao_menu button {
@@ -41,30 +37,28 @@ main{
 }
 
 .nav_opcao_menu .active {
-  background-color: #cfa17d; /* Destaque para a opção ativa */
+  background-color: #cfa17d;
 }
 
 .item_menu {
   display: flex;
-  justify-content: space-between; /* Alinha título e preço */
-  align-items: center; /* Centraliza verticalmente */
+  justify-content: space-between;
+  align-items: center;
   padding: 10px;
-  border-bottom: 1px solid #444; /* Linha separadora opcional */
+  border-bottom: 1px solid #444;
   width: 100%;
 }
 
 .titulo_item {
   font-size: 16px;
   font-weight: bold;
-  margin: 0; /* Remove margem extra */
+  margin: 0;
 }
 
 .preco_item {
   color: #f3e9e1;
   font-size: 16px;
   font-weight: bold;
-  white-space: nowrap; /* Evita quebra de linha */
-  margin-left: auto; /* Empurra o preço para a direita */
+  white-space: nowrap;
+  margin-left: auto;
 }
-
-
