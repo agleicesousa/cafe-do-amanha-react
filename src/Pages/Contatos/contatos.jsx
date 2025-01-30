@@ -1,5 +1,5 @@
-import s from "./contatos.module.css";
 import { useState } from "react";
+import s from "./contatos.module.css";
 
 export default function Contatos() {
   const [formData, setFormData] = useState({
@@ -19,7 +19,7 @@ export default function Contatos() {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Form submitted:", formData);
-    setFormData({ nome: "", email: "", mensagem: "" });
+    handleFakeSubmit();
   };
 
   const handleFakeSubmit = () => {
@@ -38,16 +38,22 @@ export default function Contatos() {
       </h3>
       <ul>
         <li>
-          <h3> <span className={s.Endereço}>Endereço:</span> 738. AV.Beira Mar, Fortaleza, CE</h3>
+          <h3>
+            <span className={s.endereco}>Endereço:</span> 738. AV. Beira Mar,
+            Fortaleza, CE
+          </h3>
         </li>
         <li>
-          <h3><span className={s.Telefone}>Telefone: </span>(85) 1234-5678</h3>
+          <h3>
+            <span className={s.telefone}>Telefone:</span> (85) 1234-5678
+          </h3>
         </li>
         <li>
-          <h3><span className={s.Email}>Email:</span>contato@cafedoamanha.com</h3>
+          <h3>
+            <span className={s.email}>Email:</span> contato@cafedoamanha.com
+          </h3>
         </li>
       </ul>
-
       <form onSubmit={handleSubmit}>
         <label htmlFor="nome">Nome:</label>
         <input
@@ -56,6 +62,7 @@ export default function Contatos() {
           name="nome"
           value={formData.nome}
           onChange={handleChange}
+          required
         />
         <label htmlFor="email">Email:</label>
         <input
@@ -64,20 +71,19 @@ export default function Contatos() {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          
+          required
         />
         <label htmlFor="mensagem">Mensagem:</label>
         <textarea
-          className={s.Mensagem}
+          className={s.mensagem}
           id="mensagem"
           name="mensagem"
           value={formData.mensagem}
           onChange={handleChange}
+          required
         />
-        <button type="submit" onClick={handleFakeSubmit}>
-          Enviar
-        </button>
+        <button type="submit">Enviar</button>
       </form>
     </main>
   );
-};
+}

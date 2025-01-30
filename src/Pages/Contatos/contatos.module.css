@@ -1,138 +1,126 @@
-body{
-  margin:0;
-  padding:0;
+body {
   background-color: var(--bg-secondary-color);
-  
+  color: var(--text-color);
 }
 
 .main_body {
-    font-family: Arial, sans-serif;
-    background-color: var(--bg-secondary-color);
-    padding: 20px;
-    width: 50%;
-    max-width: 700px;
-    height: 84vh;
-    margin:0 auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    
+  background-color: #ffffff;
+  padding: 20px;
+  width: 90%;
+  max-width: 600px;
+  height: auto;
+  margin: 20px auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
 }
-  
+
+.titulo {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+h3 {
+  font-size: 1rem;
+  line-height: 1.5;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 10px 0;
+}
+
+ul li {
+  margin-bottom: 10px;
+}
+
+ul li h3 {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.endereco,
+.telefone,
+.email {
+  color: maroon;
+  font-weight: bold;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+form label {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+form input,
+form textarea {
+  font-size: 0.9rem;
+  border-radius: 6px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1.5px solid #4a2c2a;
+  background-color: beige;
+  padding: 8px;
+  transition: border-color 0.3s ease;
+}
+
+form textarea {
+  height: 80px;
+  resize: vertical;
+}
+
+form input:focus,
+form textarea:focus {
+  border-color: #4a2c2a;
+  outline: none;
+}
+
+form button {
+  padding: 12px;
+  font-size: 1rem;
+  background-color: #4a2c2a;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
+  width: 100%;
+}
+
+form button:hover {
+  background-color: #5a3a36;
+  transform: translateY(-3px);
+}
+
+@media (max-width: 600px) {
+  .main_body {
+    padding: 15px;
+  }
+
   .titulo {
-    text-align: center;
-    font-size: 2rem;
-    color:#4a2c2a; ;
-    margin-bottom: 1rem;
+    font-size: 1.5rem;
   }
-  
-  .Endereço, .Telefone, .Email{
-    color:maroon
+
+  form {
+    gap: 10px;
+  }
+
+  form button {
+    padding: 10px;
+  }
 }
 
-
-  /* Estilizando o subtítulo do formulário de contato */
-  h3 {
-    color:#4a2c2a;
-    font-size: 1.1rem;
-    line-height: 1.5;
-    text-align:left;
-    margin-bottom: 10px;
-
-  }
-  
-  /* Lista com informações de contato */
-  ul {
-    list-style-type: none;
-    padding-left: 0;
-    margin-bottom: 10px;
-    margin-top: 10px;
-  }
-  
-  ul li {
-    margin-bottom: 10px;
-  }
-  
-  ul li h3 {
-    color: #4a2c2a;
-    font-size: 1rem;
-    text-align: left;
-  
-  }
-  
-  /* Estilizando os campos do formulário */
-  form {
-    display:flex;
-    flex-direction: column;
-    gap: 4px;
-   
-   
-  }
-  
-  form label {
-    font-size: 1rem;
-    color:#4a2c2a;
-
-  }
-  
-  form input,
-  form textarea {
-    padding: 5px;
-    font-size: 0.8rem;
-    border-radius: 6px;
-    width: 100%;
-    box-sizing: border-box;
-    border: 1.5px solid #4a2c2a;
-    background-color:beige;
-
-  }
-  
-  .Mensagem{
-    height: 80px;
-
-  }
-  
-  form input:focus,
-  form textarea:focus {
-    border-color: #4a2c2a;
-    outline:none;
-  }
-  
-  /* Estilizando o botão de envio */
-  form button {
-    padding: 12px 20px;
-    font-size: 1rem;
-    background-color: #4a2c2a;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 15px;
-  }
-  
-  form button:hover {
-    background-color:#4a2c2a;
-    transform:translateY(-5px);
-  }
-  
- /*Adaptação de telas*/
-  @media (max-width: 600px) {
-    .main_body {
-      padding: 15px;
-    }
-  
-    .titulo {
-      font-size: 1.5rem;
-    }
-  
-    form {
-      gap: 10px;
-    }
-  
-    form button {
-      padding: 10px 15px;
-    }
-  }
-  
