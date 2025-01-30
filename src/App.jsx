@@ -10,7 +10,7 @@ import Contatos from "./Pages/Contatos/contatos";
 import Historias from "./Pages/Historias/historias";
 import Inicio from "./Pages/Inicio/inicio";
 import Menu from "./Pages/Menu/menu";
-import Pedidos from "./Pages/pedidos/pedidos";
+import Pedidos from "./Pages/Pedidos/pedidos";
 import SobreNos from "./Pages/SobreNos/sobreNos";
 
 export default function App() {

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import s from "./menu.module.css";
-import menuItems from "../../mocks/menuItens.json";
+import menuItems from "../../Mocks/menuItens.json";
 
 export default function Menu() {
   const [category, setCategory] = useState("cafes");
