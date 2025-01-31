@@ -24,7 +24,7 @@ export default function App() {
         <Route path="/menu" element={<Menu />} />
         <Route path="/pedidos" element={<Pedidos />} />
         <Route path="/sobre-nos" element={<SobreNos />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
       <Footer />
     </BrowserRouter>
