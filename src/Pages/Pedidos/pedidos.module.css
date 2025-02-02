@@ -96,9 +96,7 @@
             font-size: 1rem;
             font-weight: 500;
             color: white;
-            transition:
-              background 0.3s ease,
-              transform 0.2s ease;
+            transition: background 0.3s ease, transform 0.2s ease;
 
             &:hover {
               cursor: pointer;
@@ -136,6 +134,8 @@
 
             li {
               margin-bottom: 5px;
+              display: flex;
+              font-size: 1.1rem;
             }
           }
         }
@@ -176,15 +176,108 @@
           font-size: 1rem;
           font-weight: 600;
           color: white;
-          transition:
-            background 0.3s ease,
-            transform 0.2s ease;
+          transition: background 0.3s ease, transform 0.2s ease;
           margin-top: 15px;
 
           &:hover {
             cursor: pointer;
             background: #6e452d;
             transform: scale(1.05);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .main_pedidos {
+    margin-top: 73px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 80.7vh;
+    padding: 10px;
+
+    .section_pedidos {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .titulo_pedidos {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+    }
+
+    .container_pedidos {
+      .cliente_pedidos {
+        .section_name,
+        .section_mesa {
+          margin-bottom: 10px;
+
+          label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-color);
+          }
+        }
+      }
+
+      .produtos_pedidos {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 15px;
+      }
+
+      
+      .itens_pedido {
+        h2 {
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: var(--text-color);
+          margin-bottom: 5px;
+        }
+
+        .lista_itens {
+          max-height: 7rem;
+          height: 7rem;
+          overflow-y: auto;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+
+          ul {
+            li {
+              font-weight: 400;
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+
+      .total_pedidos {
+        .section_total {
+
+          h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-color);
+            text-align: center;
+          }
+
+          .btn_total {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 0;
           }
         }
       }
