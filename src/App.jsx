@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 
 import "./Components/GlobalStye/globalStye.css";
 
@@ -15,7 +15,7 @@ import SobreNos from "./Pages/SobreNos/sobreNos";
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Header />
       <Routes>
         <Route path="/contatos" element={<Contatos />} />
@@ -27,6 +27,6 @@ export default function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
-    </BrowserRouter>
+    </HashRouter>
   );
 }
