@@ -176,7 +176,9 @@
           font-size: 14px;
           font-weight: 600;
           color: white;
-          transition: background 0.3s ease, transform 0.2s ease;
+          transition:
+            background 0.3s ease,
+            transform 0.2s ease;
           cursor: pointer;
 
           &:hover {
@@ -193,7 +195,9 @@
           font-size: 14px;
           font-weight: 600;
           color: white;
-          transition: background 0.3s ease, transform 0.2s ease;
+          transition:
+            background 0.3s ease,
+            transform 0.2s ease;
           cursor: pointer;
 
           &:hover {

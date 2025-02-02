@@ -11,7 +11,9 @@ export default function Modal({ closeModal, menuItems, addItemToPedido }) {
     if (selectedItem && quantidade > 0) {
       const itemPrice = menuItems[selectedItem].price;
       const itemTotal = itemPrice * quantidade;
-      const itemIndex = selectedItems.findIndex((item) => item.item === selectedItem);
+      const itemIndex = selectedItems.findIndex(
+        (item) => item.item === selectedItem,
+      );
 
       if (itemIndex !== -1) {
         const updatedItems = [...selectedItems];
@@ -83,7 +85,8 @@ export default function Modal({ closeModal, menuItems, addItemToPedido }) {
               <ul>
                 {selectedItems.map((item, index) => (
                   <li key={index}>
-                    {item.quantidade}x {item.item} - R$ {item.itemTotal.toFixed(2)}
+                    {item.quantidade}x {item.item} - R${" "}
+                    {item.itemTotal.toFixed(2)}
                   </li>
                 ))}
               </ul>

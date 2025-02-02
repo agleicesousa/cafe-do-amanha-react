@@ -5,7 +5,7 @@ import menuItems from "../../Mocks/menuItens.json";
 export default function Menu() {
   const [category, setCategory] = useState("cafes");
   const [mainImage, setMainImage] = useState(
-    menuItems["cafes"][Object.keys(menuItems["cafes"])[0]]
+    menuItems["cafes"][Object.keys(menuItems["cafes"])[0]],
   );
 
   const handleCategoryChange = (category) => {
