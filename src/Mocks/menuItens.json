@@ -95,7 +95,7 @@
       "alt": "Copo de suco detox verde"
     }
   },
-  "bebidas Geladas": {
+  "bebidasGeladas": {
     "Sorvete de Baunilha": {
       "id": 16,
       "price": 7.0,
@@ -127,7 +127,7 @@
       "alt": "Vitamina de morango servida em copo alto"
     }
   },
-  "chás": {
+  "chas": {
     "Chá de Hortelã": {
       "id": 21,
       "price": 4.5,
