@@ -105,7 +105,7 @@ export default function Pedidos() {
                 </button>
                 <button
                   className={s.btn_produtos}
-                  onClick={() => openModal("bebidasGeladas")}
+                  onClick={() => openModal("bebidas Geladas")}
                 >
                   Bebidas
                 </button>
@@ -113,7 +113,7 @@ export default function Pedidos() {
               <section className={s.section_produtos}>
                 <button
                   className={s.btn_produtos}
-                  onClick={() => openModal("chas")}
+                  onClick={() => openModal("chás")}
                 >
                   Chás
                 </button>
