@@ -18,6 +18,29 @@ export default function Menu() {
       "CHAS"
     ];
 
+    useEffect(() => {
+      const loadMenuItems = async () => {
+        try {
+          setLoading(true);
+          setError(null);
+          const response = await fetchItemsByCategory(category);
+          setMenuItems(response.data);
+          
+          // Define a primeira imagem como principal
+          if (response.data.length > 0) {
+            setMainImage(response.data[0]);
+          }
+        } catch (err) {
+          console.error("Erro ao carregar itens:", err);
+          setError("Erro ao carregar itens do menu. Tente novamente.");
+        } finally {
+          setLoading(false);
+        }
+      };
+  
+      loadMenuItems();
+    }, [category]);
+
   const handleCategoryChange = (category) => {
     setCategory(category);
     setMainImage(menuItems[category][Object.keys(menuItems[category])[0]]);
