@@ -68,7 +68,7 @@ export default function Pedidos() {
     setError("");
 
     try {
-      // 1. Criar o cliente (se necessário)
+      // 1. Criar o cliente
       const cliente = await createClient({
         nome,
         mesaNumero: parseInt(mesa)
