@@ -59,16 +59,48 @@ export default function Pedidos() {
     setTotal(novoPedido.reduce((sum, item) => sum + item.itemTotal, 0));
   };
 
-  const finalizarPedido = () => {
+  const finalizarPedido = async () => {
     if (!nome || !mesa) {
-      alert(" Nome e número da mesa são obrigatórios!");
+      setError("Nome e número da mesa são obrigatórios!");
       return;
     }
-    setPedido([]);
-    setTotal(0);
-    setNome("");
-    setMesa(0);
-    alert("Pedido finalizado com sucesso!");
+
+    setLoading(true);
+    setError("");
+
+    try {
+      // 1. Criar o cliente (se necessário)
+      const cliente = await createClient({
+        nome,
+        mesaNumero: parseInt(mesa)
+      });
+
+      // 2. Criar o pedido
+      const pedidoData = {
+        clienteId: cliente.id,
+        mesaNumero: parseInt(mesa),
+        itens: pedido.map(item => ({
+          menuId: item.menuId,
+          quantidade: item.quantidade,
+          precoUnitario: item.precoUnitario
+        })),
+        total: total
+      };
+
+      await createOrder(pedidoData);
+
+      // 3. Limpar o estado
+      setPedido([]);
+      setTotal(0);
+      setNome("");
+      setMesa("");
+      alert("Pedido finalizado com sucesso!");
+    } catch (err) {
+      console.error("Erro ao finalizar pedido:", err);
+      setError(err.message || "Erro ao finalizar pedido");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const cancelarPedido = () => {
