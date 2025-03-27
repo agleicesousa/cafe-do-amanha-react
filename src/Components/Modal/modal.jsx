@@ -31,9 +31,13 @@ export default function Modal({ closeModal, category, addItemToPedido }) {
 
   const addItem = () => {
     if (selectedItem && quantidade > 0) {
-      const itemPrice = menuItems[selectedItem].price;
-      const itemTotal = itemPrice * quantidade;
-      const itemIndex = selectedItems.findIndex((item) => item.item === selectedItem);
+      const item = menuItems.find(item => item.id === parseInt(selectedItem));
+      if (!item) return;
+
+      const itemTotal = item.preco * quantidade;
+      const itemIndex = selectedItems.findIndex(
+        (i) => i.menuId === selectedItem
+      );
 
       if (itemIndex !== -1) {
         const updatedItems = [...selectedItems];
@@ -43,11 +47,17 @@ export default function Modal({ closeModal, category, addItemToPedido }) {
       } else {
         setSelectedItems((prevItems) => [
           ...prevItems,
-          { item: selectedItem, quantidade, itemTotal },
+          {
+            item: item.nome,
+            menuId: item.id,
+            quantidade,
+            itemTotal,
+            precoUnitario: item.preco
+          },
         ]);
       }
 
-      setSelectedItem("");
+      setSelectedItem(null);
       setQuantidade(1);
     }
   };
