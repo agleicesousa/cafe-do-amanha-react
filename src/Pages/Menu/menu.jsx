@@ -9,41 +9,40 @@ export default function Menu() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-    // Categorias disponíveis (usando os enums do seu back-end)
-    const categories = [
-      "CAFES",
-      "SOBREMESAS",
-      "ESPECIAIS",
-      "BEBIDAS_GELADAS",
-      "CHAS"
-    ];
+  // Categorias disponíveis (usando os enums do seu back-end)
+  const categories = [
+    "CAFES",
+    "SOBREMESAS",
+    "ESPECIAIS",
+    "BEBIDAS_GELADAS",
+    "CHAS"
+  ];
 
-    useEffect(() => {
-      const loadMenuItems = async () => {
-        try {
-          setLoading(true);
-          setError(null);
-          const response = await fetchItemsByCategory(category);
-          setMenuItems(response.data);
-          
-          // Define a primeira imagem como principal
-          if (response.data.length > 0) {
-            setMainImage(response.data[0]);
-          }
-        } catch (err) {
-          console.error("Erro ao carregar itens:", err);
-          setError("Erro ao carregar itens do menu. Tente novamente.");
-        } finally {
-          setLoading(false);
+  useEffect(() => {
+    const loadMenuItems = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await fetchItemsByCategory(category);
+        setMenuItems(response.data);
+
+        // Define a primeira imagem como principal
+        if (response.data.length > 0) {
+          setMainImage(response.data[0]);
         }
-      };
-  
-      loadMenuItems();
-    }, [category]);
+      } catch (err) {
+        console.error("Erro ao carregar itens:", err);
+        setError("Erro ao carregar itens do menu. Tente novamente.");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const handleCategoryChange = (category) => {
-    setCategory(category);
-    setMainImage(menuItems[category][Object.keys(menuItems[category])[0]]);
+    loadMenuItems();
+  }, [category]);
+
+  const handleCategoryChange = (newCategory) => {
+    setCategory(newCategory);
   };
 
   const handleItemClick = (item) => {
