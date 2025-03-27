@@ -85,39 +85,39 @@ body {
   cursor: pointer;
   transition: var(--transition);
   text-align: center;
-  
-  &:disabled {
-    background-color: var(--gray-color) !important;
-    cursor: not-allowed;
-    opacity: 0.7;
-  }
+}
+
+.btn:disabled {
+  background-color: var(--gray-color) !important;
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
 .btn-primary {
   background-color: var(--bg-primary-color);
   color: var(--white);
-  
-  &:hover:not(:disabled) {
-    background-color: #6e452d;
-  }
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #6e452d;
 }
 
 .btn-success {
   background-color: var(--success-color);
   color: var(--white);
-  
-  &:hover:not(:disabled) {
-    background-color: var(--success-hover);
-  }
+}
+
+.btn-success:hover:not(:disabled) {
+  background-color: var(--success-hover);
 }
 
 .btn-danger {
   background-color: var(--danger-color);
   color: var(--white);
-  
-  &:hover:not(:disabled) {
-    background-color: var(--danger-hover);
-  }
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: var(--danger-hover);
 }
 
 /* Media queries para responsividade */
