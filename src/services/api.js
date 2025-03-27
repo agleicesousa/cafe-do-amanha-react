@@ -41,12 +41,22 @@ export const createOrderWithClient = async (orderData) => {
             },
             body: JSON.stringify(orderData),
         });
+
+        const data = await response.json();
+
         if (!response.ok) {
-            throw new Error('Erro ao criar pedido com cliente');
+            // Extrai mensagem de erro do backend se disponível
+            const errorMsg = data.message || `Erro ${response.status}: ${response.statusText}`;
+            throw new Error(errorMsg);
         }
-        return await response.json();
+
+        return data;
     } catch (error) {
-        console.error('Erro na requisição:', error);
+        console.error('Erro na requisição:', {
+            url: `${API_URL}/pedidos/com-cliente`,
+            error: error.message,
+            requestData: orderData
+        });
         throw error;
     }
 };

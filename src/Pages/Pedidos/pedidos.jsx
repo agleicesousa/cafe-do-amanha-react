@@ -66,42 +66,51 @@ export default function Pedidos() {
       setError("Nome e número da mesa são obrigatórios!");
       return;
     }
-
+  
     if (pedido.length === 0) {
       setError("Adicione itens ao pedido antes de finalizar");
       return;
     }
-
+  
     setLoading(true);
     setError("");
-
+  
     try {
+      // Prepara os dados no formato correto
       const pedidoData = {
         cliente: {
-          nome,
+          nome: nome.trim(),
           mesaNumero: parseInt(mesa)
         },
-        pedido: {
-          mesaNumero: parseInt(mesa),
-          itens: pedido.map(item => ({
-            menuId: item.menuId,
-            quantidade: item.quantidade,
-            precoUnitario: item.precoUnitario
-          })),
-          total: total
-        }
+        itens: pedido.map(item => ({
+          menuId: parseInt(item.menuId),
+          quantidade: parseInt(item.quantidade),
+          precoUnitario: parseFloat(item.precoUnitario)
+        })),
+        total: parseFloat(total.toFixed(2))
       };
-
-      await createOrderWithClient(pedidoData);
-
+  
+      console.log('Dados sendo enviados:', JSON.stringify(pedidoData, null, 2));
+  
+      const response = await createOrderWithClient(pedidoData);
+      
+      if (response.error) {
+        throw new Error(response.message || 'Erro ao criar pedido');
+      }
+  
+      // Limpa o estado após sucesso
       setPedido([]);
       setTotal(0);
       setNome("");
       setMesa("");
       alert("Pedido finalizado com sucesso!");
     } catch (err) {
-      console.error("Erro ao finalizar pedido:", err);
-      setError(err.message || "Erro ao finalizar pedido");
+      console.error("Erro detalhado:", {
+        error: err,
+        message: err.message,
+        stack: err.stack
+      });
+      setError(err.message || "Erro ao finalizar pedido. Verifique os dados.");
     } finally {
       setLoading(false);
     }
