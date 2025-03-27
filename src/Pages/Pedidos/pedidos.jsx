@@ -13,7 +13,6 @@ export default function Pedidos() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Funções para abrir e fechar o modal
   const openModal = (category) => {
     setSelectedCategory(category);
     setIsModalVisible(true);
@@ -130,6 +129,7 @@ export default function Pedidos() {
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
                   required
+                  disabled={loading}
                 />
               </section>
               <section className={s.section_mesa}>
@@ -139,8 +139,10 @@ export default function Pedidos() {
                   type="number"
                   name="mesa"
                   value={mesa}
-                  onChange={(e) => setMesa(Number(e.target.value))}
+                  onChange={(e) => setMesa(e.target.value)}
+                  min="1"
                   required
+                  disabled={loading}
                 />
               </section>
             </div>
@@ -149,13 +151,15 @@ export default function Pedidos() {
               <section className={s.section_produtos}>
                 <button
                   className={s.btn_produtos}
-                  onClick={() => openModal("cafes")}
+                  onClick={() => openModal("CAFES")}
+                  disabled={loading}
                 >
                   Cafés
                 </button>
                 <button
                   className={s.btn_produtos}
-                  onClick={() => openModal("sobremesas")}
+                  onClick={() => openModal("SOBREMESAS")}
+                  disabled={loading}
                 >
                   Sobremesas
                 </button>
@@ -163,13 +167,15 @@ export default function Pedidos() {
               <section className={s.section_produtos}>
                 <button
                   className={s.btn_produtos}
-                  onClick={() => openModal("especiais")}
+                  onClick={() => openModal("ESPECIAIS")}
+                  disabled={loading}
                 >
                   Especiais
                 </button>
                 <button
                   className={s.btn_produtos}
-                  onClick={() => openModal("bebidas Geladas")}
+                  onClick={() => openModal("BEBIDAS_GELADAS")}
+                  disabled={loading}
                 >
                   Bebidas
                 </button>
@@ -177,7 +183,8 @@ export default function Pedidos() {
               <section className={s.section_produtos}>
                 <button
                   className={s.btn_produtos}
-                  onClick={() => openModal("chás")}
+                  onClick={() => openModal("CHAS")}
+                  disabled={loading}
                 >
                   Chás
                 </button>
@@ -186,15 +193,27 @@ export default function Pedidos() {
 
             <div className={s.itens_pedido}>
               <h2>Itens no pedido:</h2>
+              {error && <p className={s.error}>{error}</p>}
               <div className={s.lista_itens}>
-                <ul>
-                  {pedido.map((item, index) => (
-                    <li key={index}>
-                      {item.quantidade}x {item.item} - R${" "}
-                      {item.itemTotal.toFixed(2)}
-                    </li>
-                  ))}
-                </ul>
+                {pedido.length === 0 ? (
+                  <p>Nenhum item adicionado</p>
+                ) : (
+                  <ul>
+                    {pedido.map((item, index) => (
+                      <li key={index}>
+                        {item.quantidade}x {item.item} - R${" "}
+                        {item.itemTotal.toFixed(2)}
+                        <button
+                          onClick={() => removerItem(item.menuId)}
+                          className={s.btn_remover}
+                          disabled={loading}
+                        >
+                          ×
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             </div>
 
@@ -204,10 +223,18 @@ export default function Pedidos() {
                 <h2>R$ {total.toFixed(2)}</h2>
               </section>
               <section className={s.section_total}>
-                <button className={s.btn_total} onClick={finalizarPedido}>
-                  Finalizar Pedido
+                <button
+                  className={s.btn_total}
+                  onClick={finalizarPedido}
+                  disabled={pedido.length === 0 || loading}
+                >
+                  {loading ? "Processando..." : "Finalizar Pedido"}
                 </button>
-                <button className={s.btn_total} onClick={cancelarPedido}>
+                <button
+                  className={s.btn_total}
+                  onClick={cancelarPedido}
+                  disabled={pedido.length === 0 || loading}
+                >
                   Cancelar Pedido
                 </button>
               </section>
@@ -216,15 +243,13 @@ export default function Pedidos() {
         </section>
       </main>
 
-      {/* Renderiza o Modal se isModalVisible for true */}
       {isModalVisible && (
         <Modal
           closeModal={closeModal}
-          menuItems={menuItems[selectedCategory]}
+          category={selectedCategory}
           addItemToPedido={addItemToPedido}
         />
       )}
     </>
   );
 }
-
