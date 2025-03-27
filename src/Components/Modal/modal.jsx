@@ -63,11 +63,32 @@ export default function Modal({ closeModal, category, addItemToPedido }) {
   };
 
   const confirmItems = () => {
-    selectedItems.forEach(({ item, quantidade }) => {
-      addItemToPedido(item, quantidade);
+    selectedItems.forEach(({ item, menuId, quantidade }) => {
+      addItemToPedido(item, menuId, quantidade);
     });
     closeModal();
   };
+
+  if (loading) {
+    return (
+      <main className={s.modal}>
+        <section className={s.container_modal}>
+          <p>Carregando itens do menu...</p>
+        </section>
+      </main>
+    );
+  }
+
+  if (error) {
+    return (
+      <main className={s.modal}>
+        <section className={s.container_modal}>
+          <p>{error}</p>
+          <button onClick={closeModal}>Fechar</button>
+        </section>
+      </main>
+    );
+  }
 
   return (
     <main className={s.modal}>
