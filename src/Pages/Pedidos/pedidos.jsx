@@ -1,7 +1,7 @@
 import { useState } from "react";
 import s from "./pedidos.module.css";
 import Modal from "../../Components/Modal/modal";
-import menuItems from "../../Mocks/menuItens.json";
+import { createOrder, createClient } from "../../services/api";
 
 export default function Pedidos() {
   const [isModalVisible, setIsModalVisible] = useState(false);
