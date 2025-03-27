@@ -13,10 +13,15 @@ export default function Pedidos() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // Debug
+  useEffect(() => {
+    console.log('Itens no pedido:', pedido);
+  }, [pedido]);
+
   // Atualiza o total sempre que o pedido muda
   useEffect(() => {
     const newTotal = pedido.reduce((sum, item) => sum + (item.precoUnitario * item.quantidade), 0);
-    setTotal(newTotal);
+    setTotal(parseFloat(newTotal.toFixed(2)));
   }, [pedido]);
 
   const openModal = (category) => {
@@ -27,33 +32,33 @@ export default function Pedidos() {
   const closeModal = () => setIsModalVisible(false);
 
   const addItemToPedido = (itemName, menuId, quantidade, precoUnitario) => {
-    const itemExistente = pedido.find(item => item.menuId === menuId);
-
-    if (itemExistente) {
-      setPedido(pedido.map(item =>
-        item.menuId === menuId
-          ? {
-            ...item,
-            quantidade: item.quantidade + quantidade,
+    setPedido(prevPedido => {
+      const itemExistenteIndex = prevPedido.findIndex(item => item.menuId === menuId);
+      
+      if (itemExistenteIndex >= 0) {
+        const updatedItems = [...prevPedido];
+        updatedItems[itemExistenteIndex] = {
+          ...updatedItems[itemExistenteIndex],
+          quantidade: updatedItems[itemExistenteIndex].quantidade + quantidade,
+          precoUnitario: precoUnitario
+        };
+        return updatedItems;
+      } else {
+        return [
+          ...prevPedido,
+          {
+            item: itemName,
+            menuId,
+            quantidade,
             precoUnitario
           }
-          : item
-      ));
-    } else {
-      setPedido([
-        ...pedido,
-        {
-          item: itemName,
-          menuId,
-          quantidade,
-          precoUnitario
-        }
-      ]);
-    }
+        ];
+      }
+    });
   };
 
   const removerItem = (menuId) => {
-    setPedido(pedido.filter(item => item.menuId !== menuId));
+    setPedido(prevPedido => prevPedido.filter(item => item.menuId !== menuId));
   };
 
   const finalizarPedido = async () => {
@@ -71,7 +76,6 @@ export default function Pedidos() {
     setError("");
 
     try {
-      // Cria cliente e pedido juntos
       const pedidoData = {
         cliente: {
           nome,
@@ -90,7 +94,6 @@ export default function Pedidos() {
 
       await createOrderWithClient(pedidoData);
 
-      // Limpa o estado após sucesso
       setPedido([]);
       setTotal(0);
       setNome("");
@@ -202,9 +205,9 @@ export default function Pedidos() {
                 ) : (
                   <ul>
                     {pedido.map((item, index) => (
-                      <li key={index}>
+                      <li key={`${item.menuId}-${index}`}>
                         {item.quantidade}x {item.item} - R${" "}
-                        {item.itemTotal.toFixed(2)}
+                        {(item.quantidade * item.precoUnitario).toFixed(2)}
                         <button
                           onClick={() => removerItem(item.menuId)}
                           className={s.btn_remover}
