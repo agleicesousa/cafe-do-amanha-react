@@ -49,6 +49,28 @@ export default function Menu() {
     setMainImage(item);
   };
 
+  if (loading && menuItems.length === 0) {
+    return (
+      <main className={s.main_menu}>
+        <section className={s.section_menu}>
+          <h1 className={s.titulo_menu}>Café do Amanhã</h1>
+          <p>Carregando menu...</p>
+        </section>
+      </main>
+    );
+  }
+
+  if (error) {
+    return (
+      <main className={s.main_menu}>
+        <section className={s.section_menu}>
+          <h1 className={s.titulo_menu}>Café do Amanhã</h1>
+          <p className={s.error}>{error}</p>
+        </section>
+      </main>
+    );
+  }
+
   return (
     <main className={s.main_menu}>
       <section className={s.section_menu}>
