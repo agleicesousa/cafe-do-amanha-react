@@ -53,6 +53,12 @@ export default function Pedidos() {
     setTotal(pedido.reduce((sum, item) => sum + item.itemTotal, 0));
   };
 
+  const removerItem = (menuId) => {
+    const novoPedido = pedido.filter(item => item.menuId !== menuId);
+    setPedido(novoPedido);
+    setTotal(novoPedido.reduce((sum, item) => sum + item.itemTotal, 0));
+  };
+
   const finalizarPedido = () => {
     if (!nome || !mesa) {
       alert(" Nome e número da mesa são obrigatórios!");
