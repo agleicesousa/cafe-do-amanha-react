@@ -11,6 +11,11 @@ export default function Modal({ closeModal, category, addItemToPedido }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Debug
+  useEffect(() => {
+    console.log('Itens selecionados no modal:', selectedItems);
+  }, [selectedItems]);
+
   useEffect(() => {
     const loadMenuItems = async () => {
       try {
@@ -30,43 +35,72 @@ export default function Modal({ closeModal, category, addItemToPedido }) {
   }, [category]);
 
   const addItem = () => {
-    if (selectedItem && quantidade > 0) {
-      const item = menuItems.find(item => item.id === parseInt(selectedItem));
-      if (!item) return;
-
-      const itemTotal = item.preco * quantidade;
-      const itemIndex = selectedItems.findIndex(
-        (i) => i.menuId === selectedItem
-      );
-
-      if (itemIndex !== -1) {
-        const updatedItems = [...selectedItems];
-        updatedItems[itemIndex].quantidade += quantidade;
-        updatedItems[itemIndex].itemTotal += itemTotal;
-        setSelectedItems(updatedItems);
-      } else {
-        setSelectedItems((prevItems) => [
-          ...prevItems,
-          {
-            item: item.nome,
-            menuId: item.id,
-            quantidade,
-            itemTotal,
-            precoUnitario: item.preco
-          },
-        ]);
+    try {
+      if (!selectedItem || quantidade < 1) {
+        alert('Selecione um item e uma quantidade válida');
+        return;
       }
+
+      const item = menuItems.find(item => item.id === parseInt(selectedItem));
+      if (!item) {
+        alert('Item não encontrado');
+        return;
+      }
+
+      setSelectedItems(prevItems => {
+        const existingItemIndex = prevItems.findIndex(i => i.menuId === selectedItem);
+        
+        if (existingItemIndex >= 0) {
+          const updatedItems = [...prevItems];
+          updatedItems[existingItemIndex] = {
+            ...updatedItems[existingItemIndex],
+            quantidade: updatedItems[existingItemIndex].quantidade + quantidade,
+            precoUnitario: item.preco
+          };
+          return updatedItems;
+        } else {
+          return [
+            ...prevItems,
+            {
+              item: item.nome,
+              menuId: item.id,
+              quantidade,
+              precoUnitario: item.preco
+            }
+          ];
+        }
+      });
 
       setSelectedItem(null);
       setQuantidade(1);
+    } catch (error) {
+      console.error('Erro ao adicionar item:', error);
+      alert('Erro ao adicionar item');
     }
   };
 
   const confirmItems = () => {
-    selectedItems.forEach(({ item, menuId, quantidade, precoUnitario }) => {
-      addItemToPedido(item, menuId, quantidade, precoUnitario);
-    });
-    closeModal();
+    try {
+      if (selectedItems.length === 0) {
+        alert('Nenhum item selecionado');
+        return;
+      }
+
+      selectedItems.forEach(item => {
+        addItemToPedido(
+          item.item,
+          item.menuId,
+          item.quantidade,
+          item.precoUnitario
+        );
+      });
+
+      setSelectedItems([]);
+      closeModal();
+    } catch (error) {
+      console.error('Erro ao confirmar itens:', error);
+      alert('Erro ao adicionar itens ao pedido');
+    }
   };
 
   if (loading) {
@@ -99,32 +133,26 @@ export default function Modal({ closeModal, category, addItemToPedido }) {
             <section className={s.section_produtos_modal}>
               <div className={s.item_modal}>
                 <h3>Item:</h3>
-                <form action="itens">
-                  <select
-                    name="itens"
-                    id="itens"
-                    value={selectedItem || ""}
-                    onChange={(e) => setSelectedItem(e.target.value)}
-                    disabled={menuItems.length === 0}
-                  >
-                    <option value="">Selecione um item</option>
-                    {menuItems.map((item) => (
-                      <option key={item.id} value={item.id}>
-                        {item.nome} - R$ {Number(item.preco).toFixed(2)}
-                      </option>
-                    ))}
-                  </select>
-                </form>
+                <select
+                  value={selectedItem || ""}
+                  onChange={(e) => setSelectedItem(e.target.value)}
+                  disabled={menuItems.length === 0}
+                >
+                  <option value="">Selecione um item</option>
+                  {menuItems.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.nome} - R$ {Number(item.preco).toFixed(2)}
+                    </option>
+                  ))}
+                </select>
               </div>
             </section>
             <section className={s.section_quantidade_modal}>
               <h3>Quantidade:</h3>
               <input
                 type="number"
-                name="quantidade"
-                id="quantidade"
                 value={quantidade}
-                onChange={(e) => setQuantidade(Number(e.target.value))}
+                onChange={(e) => setQuantidade(Math.max(1, Number(e.target.value)))}
                 min="1"
                 disabled={!selectedItem}
               />
@@ -137,7 +165,7 @@ export default function Modal({ closeModal, category, addItemToPedido }) {
               <ul>
                 {selectedItems.map((item, index) => (
                   <li key={index}>
-                    {item.quantidade}x {item.item} - R$ {item.itemTotal.toFixed(2)}
+                    {item.quantidade}x {item.item} - R$ {(item.quantidade * item.precoUnitario).toFixed(2)}
                   </li>
                 ))}
               </ul>
