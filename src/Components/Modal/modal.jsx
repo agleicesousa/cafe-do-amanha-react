@@ -1,17 +1,43 @@
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import s from "./modal.module.css";
-import { useState } from "react";
+import { fetchItemsByCategory } from "../../services/api";
 
-export default function Modal({ closeModal, menuItems, addItemToPedido }) {
+export default function Modal({ closeModal, category, addItemToPedido }) {
   const [selectedItems, setSelectedItems] = useState([]);
-  const [selectedItem, setSelectedItem] = useState("");
+  const [selectedItem, setSelectedItem] = useState(null);
   const [quantidade, setQuantidade] = useState(1);
+  const [menuItems, setMenuItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const loadMenuItems = async () => {
+      try {
+        setLoading(true);
+        const response = await fetchItemsByCategory(category);
+        setMenuItems(response.data);
+        setError(null);
+      } catch (err) {
+        console.error("Erro ao carregar itens:", err);
+        setError("Erro ao carregar itens do menu. Tente novamente.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadMenuItems();
+  }, [category]);
 
   const addItem = () => {
     if (selectedItem && quantidade > 0) {
-      const itemPrice = menuItems[selectedItem].price;
-      const itemTotal = itemPrice * quantidade;
-      const itemIndex = selectedItems.findIndex((item) => item.item === selectedItem);
+      const item = menuItems.find(item => item.id === parseInt(selectedItem));
+      if (!item) return;
+
+      const itemTotal = item.preco * quantidade;
+      const itemIndex = selectedItems.findIndex(
+        (i) => i.menuId === selectedItem
+      );
 
       if (itemIndex !== -1) {
         const updatedItems = [...selectedItems];
@@ -21,21 +47,48 @@ export default function Modal({ closeModal, menuItems, addItemToPedido }) {
       } else {
         setSelectedItems((prevItems) => [
           ...prevItems,
-          { item: selectedItem, quantidade, itemTotal },
+          {
+            item: item.nome,
+            menuId: item.id,
+            quantidade,
+            itemTotal,
+            precoUnitario: item.preco
+          },
         ]);
       }
 
-      setSelectedItem("");
+      setSelectedItem(null);
       setQuantidade(1);
     }
   };
 
   const confirmItems = () => {
-    selectedItems.forEach(({ item, quantidade }) => {
-      addItemToPedido(item, quantidade);
+    selectedItems.forEach(({ item, menuId, quantidade }) => {
+      addItemToPedido(item, menuId, quantidade);
     });
     closeModal();
   };
+
+  if (loading) {
+    return (
+      <main className={s.modal}>
+        <section className={s.container_modal}>
+          <p>Carregando itens do menu...</p>
+        </section>
+      </main>
+    );
+  }
+
+  if (error) {
+    return (
+      <main className={s.modal}>
+        <section className={s.container_modal}>
+          <p>{error}</p>
+          <button onClick={closeModal}>Fechar</button>
+        </section>
+      </main>
+    );
+  }
 
   return (
     <main className={s.modal}>
@@ -50,13 +103,14 @@ export default function Modal({ closeModal, menuItems, addItemToPedido }) {
                   <select
                     name="itens"
                     id="itens"
-                    value={selectedItem}
+                    value={selectedItem || ""}
                     onChange={(e) => setSelectedItem(e.target.value)}
+                    disabled={menuItems.length === 0}
                   >
                     <option value="">Selecione um item</option>
-                    {Object.keys(menuItems).map((item) => (
-                      <option key={item} value={item}>
-                        {item} - R$ {menuItems[item].price.toFixed(2)}
+                    {menuItems.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.nome} - R$ {Number(item.preco).toFixed(2)}
                       </option>
                     ))}
                   </select>
@@ -72,11 +126,11 @@ export default function Modal({ closeModal, menuItems, addItemToPedido }) {
                 value={quantidade}
                 onChange={(e) => setQuantidade(Number(e.target.value))}
                 min="1"
+                disabled={!selectedItem}
               />
             </section>
           </div>
 
-          {/* Lista de itens adicionados */}
           {selectedItems.length > 0 && (
             <div className={s.lista_itens_modal}>
               <h3>Itens adicionados:</h3>
@@ -91,10 +145,18 @@ export default function Modal({ closeModal, menuItems, addItemToPedido }) {
           )}
 
           <section className={s.btn_modal}>
-            <button className={s.btn_add_item} onClick={addItem}>
+            <button 
+              className={s.btn_add_item} 
+              onClick={addItem}
+              disabled={!selectedItem || quantidade < 1}
+            >
               Adicionar Item
             </button>
-            <button className={s.btn_confirmar} onClick={confirmItems}>
+            <button 
+              className={s.btn_confirmar} 
+              onClick={confirmItems}
+              disabled={selectedItems.length === 0}
+            >
               Adicionar ao Pedido
             </button>
             <button className={s.btn_cancelar} onClick={closeModal}>
@@ -109,6 +171,6 @@ export default function Modal({ closeModal, menuItems, addItemToPedido }) {
 
 Modal.propTypes = {
   closeModal: PropTypes.func.isRequired,
-  menuItems: PropTypes.object.isRequired,
+  category: PropTypes.string.isRequired,
   addItemToPedido: PropTypes.func.isRequired,
 };
