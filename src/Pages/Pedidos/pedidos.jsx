@@ -9,7 +9,9 @@ export default function Pedidos() {
   const [pedido, setPedido] = useState([]);
   const [total, setTotal] = useState(0);
   const [nome, setNome] = useState("");
-  const [mesa, setMesa] = useState(0);
+  const [mesa, setMesa] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   // Funções para abrir e fechar o modal
   const openModal = (category) => {
