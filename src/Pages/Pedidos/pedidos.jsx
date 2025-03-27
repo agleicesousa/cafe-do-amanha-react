@@ -18,19 +18,39 @@ export default function Pedidos() {
     setSelectedCategory(category);
     setIsModalVisible(true);
   };
+
   const closeModal = () => setIsModalVisible(false);
 
-  const addItemToPedido = (item, quantidade) => {
-    if (item && quantidade > 0) {
-      const itemPrice = menuItems[selectedCategory][item].price;
-      const itemTotal = itemPrice * quantidade;
-      setPedido((prevPedido) => [
-        ...prevPedido,
-        { item, quantidade, itemTotal },
+  const addItemToPedido = (itemName, menuId, quantidade) => {
+    const itemExistente = pedido.find(item => item.menuId === menuId);
+
+    if (itemExistente) {
+      setPedido(pedido.map(item =>
+        item.menuId === menuId
+          ? {
+            ...item,
+            quantidade: item.quantidade + quantidade,
+            itemTotal: item.itemTotal + (item.precoUnitario * quantidade)
+          }
+          : item
+      ));
+    } else {
+      const precoUnitario = pedido.find(i => i.item === itemName)?.precoUnitario ||
+        parseFloat(prompt(`Informe o preço unitário para ${itemName}:`) || 0);
+
+      setPedido([
+        ...pedido,
+        {
+          item: itemName,
+          menuId,
+          quantidade,
+          precoUnitario,
+          itemTotal: precoUnitario * quantidade
+        }
       ]);
-      setTotal((prevTotal) => prevTotal + itemTotal);
     }
-    closeModal();
+
+    setTotal(pedido.reduce((sum, item) => sum + item.itemTotal, 0));
   };
 
   const finalizarPedido = () => {
