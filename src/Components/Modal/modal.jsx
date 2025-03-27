@@ -162,6 +162,6 @@ export default function Modal({ closeModal, category, addItemToPedido }) {
 
 Modal.propTypes = {
   closeModal: PropTypes.func.isRequired,
-  menuItems: PropTypes.object.isRequired,
+  category: PropTypes.string.isRequired,
   addItemToPedido: PropTypes.func.isRequired,
 };
