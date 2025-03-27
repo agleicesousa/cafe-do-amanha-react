@@ -29,3 +29,14 @@ export const createOrder = async (orderData) => {
     });
     return handleResponse(response);
 };
+
+export const createClient = async (clientData) => {
+    const response = await fetch(`${API_URL}/clientes`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(clientData),
+    });
+    return handleResponse(response);
+};
