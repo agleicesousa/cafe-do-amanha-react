@@ -3,10 +3,13 @@ import PropTypes from "prop-types";
 import s from "./modal.module.css";
 import { fetchItemsByCategory } from "../../services/api";
 
-export default function Modal({ closeModal, menuItems, addItemToPedido }) {
+export default function Modal({ closeModal, category, addItemToPedido }) {
   const [selectedItems, setSelectedItems] = useState([]);
-  const [selectedItem, setSelectedItem] = useState("");
+  const [selectedItem, setSelectedItem] = useState(null);
   const [quantidade, setQuantidade] = useState(1);
+  const [menuItems, setMenuItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const addItem = () => {
     if (selectedItem && quantidade > 0) {
