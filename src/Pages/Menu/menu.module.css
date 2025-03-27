@@ -74,3 +74,16 @@
   font-size: 16px;
   font-weight: 600;
 }
+
+.error {
+  color: #ff6b6b;
+  font-size: 1rem;
+  margin-top: 20px;
+}
+
+/* Estilo para o placeholder quando não há itens */
+.lista_itens_menu > p {
+  text-align: center;
+  padding: 20px;
+  color: #f3e9e1;
+}
