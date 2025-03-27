@@ -119,3 +119,15 @@ export default function Menu() {
     </main>
   );
 }
+
+// Função para formatar o nome da categoria para exibição
+function formatCategoryName(category) {
+  const formatMap = {
+    'CAFES': 'Cafés',
+    'SOBREMESAS': 'Sobremesas',
+    'ESPECIAIS': 'Especiais',
+    'BEBIDAS_GELADAS': 'Bebidas Geladas',
+    'CHAS': 'Chás'
+  };
+  return formatMap[category] || category;
+}
