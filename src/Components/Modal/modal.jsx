@@ -1,6 +1,7 @@
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import s from "./modal.module.css";
-import { useState } from "react";
+import { fetchItemsByCategory } from "../../services/api";
 
 export default function Modal({ closeModal, menuItems, addItemToPedido }) {
   const [selectedItems, setSelectedItems] = useState([]);
