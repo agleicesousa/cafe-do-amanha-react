@@ -103,13 +103,14 @@ export default function Modal({ closeModal, category, addItemToPedido }) {
                   <select
                     name="itens"
                     id="itens"
-                    value={selectedItem}
+                    value={selectedItem || ""}
                     onChange={(e) => setSelectedItem(e.target.value)}
+                    disabled={menuItems.length === 0}
                   >
                     <option value="">Selecione um item</option>
-                    {Object.keys(menuItems).map((item) => (
-                      <option key={item} value={item}>
-                        {item} - R$ {menuItems[item].price.toFixed(2)}
+                    {menuItems.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.nome} - R$ {Number(item.preco).toFixed(2)}
                       </option>
                     ))}
                   </select>
@@ -125,11 +126,11 @@ export default function Modal({ closeModal, category, addItemToPedido }) {
                 value={quantidade}
                 onChange={(e) => setQuantidade(Number(e.target.value))}
                 min="1"
+                disabled={!selectedItem}
               />
             </section>
           </div>
 
-          {/* Lista de itens adicionados */}
           {selectedItems.length > 0 && (
             <div className={s.lista_itens_modal}>
               <h3>Itens adicionados:</h3>
@@ -144,10 +145,18 @@ export default function Modal({ closeModal, category, addItemToPedido }) {
           )}
 
           <section className={s.btn_modal}>
-            <button className={s.btn_add_item} onClick={addItem}>
+            <button 
+              className={s.btn_add_item} 
+              onClick={addItem}
+              disabled={!selectedItem || quantidade < 1}
+            >
               Adicionar Item
             </button>
-            <button className={s.btn_confirmar} onClick={confirmItems}>
+            <button 
+              className={s.btn_confirmar} 
+              onClick={confirmItems}
+              disabled={selectedItems.length === 0}
+            >
               Adicionar ao Pedido
             </button>
             <button className={s.btn_cancelar} onClick={closeModal}>
