@@ -63,8 +63,8 @@ export default function Modal({ closeModal, category, addItemToPedido }) {
   };
 
   const confirmItems = () => {
-    selectedItems.forEach(({ item, menuId, quantidade }) => {
-      addItemToPedido(item, menuId, quantidade);
+    selectedItems.forEach(({ item, menuId, quantidade, precoUnitario }) => {
+      addItemToPedido(item, menuId, quantidade, precoUnitario);
     });
     closeModal();
   };

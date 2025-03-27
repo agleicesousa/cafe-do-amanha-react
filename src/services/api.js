@@ -51,3 +51,22 @@ export const createOrder = async (orderData) => {
         throw error;
     }
 };
+
+export const createOrderWithClient = async (orderData) => {
+    try {
+        const response = await fetch(`${API_URL}/pedidos/com-cliente`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(orderData),
+        });
+        if (!response.ok) {
+            throw new Error('Erro ao criar pedido com cliente');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Erro na requisição:', error);
+        throw error;
+    }
+};

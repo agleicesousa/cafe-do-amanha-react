@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import s from "./pedidos.module.css";
 import Modal from "../../Components/Modal/modal";
-import { createOrder, createClient } from "../../services/api";
+import { createOrderWithClient } from "../../services/api";
 
 export default function Pedidos() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -13,6 +13,12 @@ export default function Pedidos() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // Atualiza o total sempre que o pedido muda
+  useEffect(() => {
+    const newTotal = pedido.reduce((sum, item) => sum + (item.precoUnitario * item.quantidade), 0);
+    setTotal(newTotal);
+  }, [pedido]);
+
   const openModal = (category) => {
     setSelectedCategory(category);
     setIsModalVisible(true);
@@ -20,7 +26,7 @@ export default function Pedidos() {
 
   const closeModal = () => setIsModalVisible(false);
 
-  const addItemToPedido = (itemName, menuId, quantidade) => {
+  const addItemToPedido = (itemName, menuId, quantidade, precoUnitario) => {
     const itemExistente = pedido.find(item => item.menuId === menuId);
 
     if (itemExistente) {
@@ -29,33 +35,25 @@ export default function Pedidos() {
           ? {
             ...item,
             quantidade: item.quantidade + quantidade,
-            itemTotal: item.itemTotal + (item.precoUnitario * quantidade)
+            precoUnitario
           }
           : item
       ));
     } else {
-      const precoUnitario = pedido.find(i => i.item === itemName)?.precoUnitario ||
-        parseFloat(prompt(`Informe o preço unitário para ${itemName}:`) || 0);
-
       setPedido([
         ...pedido,
         {
           item: itemName,
           menuId,
           quantidade,
-          precoUnitario,
-          itemTotal: precoUnitario * quantidade
+          precoUnitario
         }
       ]);
     }
-
-    setTotal(pedido.reduce((sum, item) => sum + item.itemTotal, 0));
   };
 
   const removerItem = (menuId) => {
-    const novoPedido = pedido.filter(item => item.menuId !== menuId);
-    setPedido(novoPedido);
-    setTotal(novoPedido.reduce((sum, item) => sum + item.itemTotal, 0));
+    setPedido(pedido.filter(item => item.menuId !== menuId));
   };
 
   const finalizarPedido = async () => {
@@ -64,31 +62,35 @@ export default function Pedidos() {
       return;
     }
 
+    if (pedido.length === 0) {
+      setError("Adicione itens ao pedido antes de finalizar");
+      return;
+    }
+
     setLoading(true);
     setError("");
 
     try {
-      // 1. Criar o cliente
-      const cliente = await createClient({
-        nome,
-        mesaNumero: parseInt(mesa)
-      });
-
-      // 2. Criar o pedido
+      // Cria cliente e pedido juntos
       const pedidoData = {
-        clienteId: cliente.id,
-        mesaNumero: parseInt(mesa),
-        itens: pedido.map(item => ({
-          menuId: item.menuId,
-          quantidade: item.quantidade,
-          precoUnitario: item.precoUnitario
-        })),
-        total: total
+        cliente: {
+          nome,
+          mesaNumero: parseInt(mesa)
+        },
+        pedido: {
+          mesaNumero: parseInt(mesa),
+          itens: pedido.map(item => ({
+            menuId: item.menuId,
+            quantidade: item.quantidade,
+            precoUnitario: item.precoUnitario
+          })),
+          total: total
+        }
       };
 
-      await createOrder(pedidoData);
+      await createOrderWithClient(pedidoData);
 
-      // 3. Limpar o estado
+      // Limpa o estado após sucesso
       setPedido([]);
       setTotal(0);
       setNome("");
