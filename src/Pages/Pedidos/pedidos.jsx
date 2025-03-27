@@ -104,10 +104,14 @@ export default function Pedidos() {
   };
 
   const cancelarPedido = () => {
+    if (pedido.length > 0 && !window.confirm("Deseja realmente cancelar este pedido?")) {
+      return;
+    }
     setPedido([]);
     setTotal(0);
     setNome("");
-    setMesa(0);
+    setMesa("");
+    setError("");
   };
 
   return (
