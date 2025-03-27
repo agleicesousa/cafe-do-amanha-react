@@ -1,12 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import s from "./menu.module.css";
-import menuItems from "../../Mocks/menuItens.json";
+import { fetchItemsByCategory } from "../../services/api";
 
 export default function Menu() {
-  const [category, setCategory] = useState("cafes");
-  const [mainImage, setMainImage] = useState(
-    menuItems["cafes"][Object.keys(menuItems["cafes"])[0]]
-  );
+  const [category, setCategory] = useState("CAFES");
+  const [mainImage, setMainImage] = useState(null);
+  const [menuItems, setMenuItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+    // Categorias disponíveis (usando os enums do seu back-end)
+    const categories = [
+      "CAFES",
+      "SOBREMESAS",
+      "ESPECIAIS",
+      "BEBIDAS_GELADAS",
+      "CHAS"
+    ];
 
   const handleCategoryChange = (category) => {
     setCategory(category);
