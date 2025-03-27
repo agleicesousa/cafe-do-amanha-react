@@ -11,6 +11,24 @@ export default function Modal({ closeModal, category, addItemToPedido }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  useEffect(() => {
+    const loadMenuItems = async () => {
+      try {
+        setLoading(true);
+        const response = await fetchItemsByCategory(category);
+        setMenuItems(response.data);
+        setError(null);
+      } catch (err) {
+        console.error("Erro ao carregar itens:", err);
+        setError("Erro ao carregar itens do menu. Tente novamente.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadMenuItems();
+  }, [category]);
+
   const addItem = () => {
     if (selectedItem && quantidade > 0) {
       const itemPrice = menuItems[selectedItem].price;
