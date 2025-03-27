@@ -25,7 +25,7 @@ export default function Menu() {
         setError(null);
         const response = await fetchItemsByCategory(category);
         setMenuItems(response.data);
-
+        
         // Define a primeira imagem como principal
         if (response.data.length > 0) {
           setMainImage(response.data[0]);
@@ -75,45 +75,51 @@ export default function Menu() {
     <main className={s.main_menu}>
       <section className={s.section_menu}>
         <h1 className={s.titulo_menu}>Café do Amanhã</h1>
-        <img className={s.img_menu} src={mainImage.image} alt={mainImage.alt} />
+        {mainImage && (
+          <img 
+            className={s.img_menu} 
+            src={mainImage.imagem || '/placeholder-food.jpg'} 
+            alt={mainImage.nome} 
+            onError={(e) => {
+              e.target.src = '/placeholder-food.jpg';
+            }}
+          />
+        )}
       </section>
+      
       <section className={s.section_opcoes_menu}>
         <div className={s.opcoes_menu}>
           <nav className={s.nav_opcao_menu}>
             <ul>
-              {[
-                "cafes",
-                "sobremesas",
-                "especiais",
-                "bebidas Geladas",
-                "chás",
-              ].map((cat) => (
+              {categories.map((cat) => (
                 <li key={cat}>
                   <button
                     className={category === cat ? s.active : ""}
                     onClick={() => handleCategoryChange(cat)}
                   >
-                    {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                    {formatCategoryName(cat)}
                   </button>
                 </li>
               ))}
             </ul>
           </nav>
         </div>
+        
         <div className={s.lista_itens_menu}>
-          {Object.keys(menuItems[category]).map((itemKey) => {
-            const item = menuItems[category][itemKey];
-            return (
+          {menuItems.length === 0 ? (
+            <p>Nenhum item disponível nesta categoria</p>
+          ) : (
+            menuItems.map((item) => (
               <div
                 className={s.item_menu}
                 key={item.id}
                 onClick={() => handleItemClick(item)}
               >
-                <h3 className={s.titulo_item}>{itemKey}</h3>
-                <p className={s.preco_item}>R$ {item.price.toFixed(2)}</p>
+                <h3 className={s.titulo_item}>{item.nome}</h3>
+                <p className={s.preco_item}>R$ {Number(item.preco).toFixed(2)}</p>
               </div>
-            );
-          })}
+            ))
+          )}
         </div>
       </section>
     </main>
