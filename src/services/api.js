@@ -1,25 +1,62 @@
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = import.meta.env.VITE_REACT_APP_API_URL;
 
-const handleResponse = async (response) => {
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.error || 'Erro na requisição');
+export const fetchItemsByCategory = async (category) => {
+    try {
+        const response = await fetch(`${API_URL}/menu/itens/categoria/${category}`);
+        if (!response.ok) {
+            throw new Error('Erro ao buscar itens');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Erro na requisição:', error);
+        throw error;
     }
-    return response.json();
-  };
-// listar todos os itens do menu
-export const listarTodosItens = async () => {
-  const response = await fetch(`${API_URL}/menu`);
-  return handleResponse(response); 
 };
-// listar por id
-export const buscarItemPorId = async (id) => {
-    const response = await fetch(`${API_URL}/menu/${id}`); 
-    return handleResponse(response); 
+
+export const createOrder = async (orderData) => {
+    try {
+        const response = await fetch(`${API_URL}/pedidos`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(orderData),
+        });
+        if (!response.ok) {
+            throw new Error('Erro ao criar pedido');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Erro na requisição:', error);
+        throw error;
+    }
 };
-  // listar por categoria
-export const buscarItensPorCategoria = async (categoria) => {
-    const response = await fetch(`${API_URL}/menu?categoria=${categoria}`); 
-    return handleResponse(response);
-};
-  
+
+export const createOrderWithClient = async (orderData) => {
+    try {
+        const response = await fetch(`${API_URL}/pedidos/com-cliente`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(orderData),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            // Extrai mensagem de erro do backend se disponível
+            const errorMsg = data.message || `Erro ${response.status}: ${response.statusText}`;
+            throw new Error(errorMsg);
+        }
+
+        return data;
+    } catch (error) {
+        console.error('Erro na requisição:', {
+            url: `${API_URL}/pedidos/com-cliente`,
+            error: error.message,
+            requestData: orderData
+        });
+        throw error;
+    }
+}

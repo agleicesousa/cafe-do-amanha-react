@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import s from "./pedidos.module.css";
 import Modal from "../../Components/Modal/modal";
-import menuItems from "../../Mocks/menuItens.json";
+import { createOrderWithClient } from "../../services/api";
 
 export default function Pedidos() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -9,45 +9,122 @@ export default function Pedidos() {
   const [pedido, setPedido] = useState([]);
   const [total, setTotal] = useState(0);
   const [nome, setNome] = useState("");
-  const [mesa, setMesa] = useState(0);
+  const [mesa, setMesa] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  // Funções para abrir e fechar o modal
+  // Debug
+  useEffect(() => {
+    console.log('Itens no pedido:', pedido);
+  }, [pedido]);
+
+  // Atualiza o total sempre que o pedido muda
+  useEffect(() => {
+    const newTotal = pedido.reduce((sum, item) => sum + (item.precoUnitario * item.quantidade), 0);
+    setTotal(parseFloat(newTotal.toFixed(2)));
+  }, [pedido]);
+
   const openModal = (category) => {
     setSelectedCategory(category);
     setIsModalVisible(true);
   };
+
   const closeModal = () => setIsModalVisible(false);
 
-  const addItemToPedido = (item, quantidade) => {
-    if (item && quantidade > 0) {
-      const itemPrice = menuItems[selectedCategory][item].price;
-      const itemTotal = itemPrice * quantidade;
-      setPedido((prevPedido) => [
-        ...prevPedido,
-        { item, quantidade, itemTotal },
-      ]);
-      setTotal((prevTotal) => prevTotal + itemTotal);
-    }
-    closeModal();
+  const addItemToPedido = (itemName, menuId, quantidade, precoUnitario) => {
+    setPedido(prevPedido => {
+      const itemExistenteIndex = prevPedido.findIndex(item => item.menuId === menuId);
+      
+      if (itemExistenteIndex >= 0) {
+        const updatedItems = [...prevPedido];
+        updatedItems[itemExistenteIndex] = {
+          ...updatedItems[itemExistenteIndex],
+          quantidade: updatedItems[itemExistenteIndex].quantidade + quantidade,
+          precoUnitario: precoUnitario
+        };
+        return updatedItems;
+      } else {
+        return [
+          ...prevPedido,
+          {
+            item: itemName,
+            menuId,
+            quantidade,
+            precoUnitario
+          }
+        ];
+      }
+    });
   };
 
-  const finalizarPedido = () => {
+  const removerItem = (menuId) => {
+    setPedido(prevPedido => prevPedido.filter(item => item.menuId !== menuId));
+  };
+
+  const finalizarPedido = async () => {
     if (!nome || !mesa) {
-      alert(" Nome e número da mesa são obrigatórios!");
+      setError("Nome e número da mesa são obrigatórios!");
+      return;
+    }
+  
+    if (pedido.length === 0) {
+      setError("Adicione itens ao pedido antes de finalizar");
+      return;
+    }
+  
+    setLoading(true);
+    setError("");
+  
+    try {
+      // Prepara os dados no formato correto
+      const pedidoData = {
+        cliente: {
+          nome: nome.trim(),
+          mesaNumero: parseInt(mesa)
+        },
+        itens: pedido.map(item => ({
+          menuId: parseInt(item.menuId),
+          quantidade: parseInt(item.quantidade),
+          precoUnitario: parseFloat(item.precoUnitario)
+        })),
+        total: parseFloat(total.toFixed(2))
+      };
+  
+      console.log('Dados sendo enviados:', JSON.stringify(pedidoData, null, 2));
+  
+      const response = await createOrderWithClient(pedidoData);
+      
+      if (response.error) {
+        throw new Error(response.message || 'Erro ao criar pedido');
+      }
+  
+      // Limpa o estado após sucesso
+      setPedido([]);
+      setTotal(0);
+      setNome("");
+      setMesa("");
+      alert("Pedido finalizado com sucesso!");
+    } catch (err) {
+      console.error("Erro detalhado:", {
+        error: err,
+        message: err.message,
+        stack: err.stack
+      });
+      setError(err.message || "Erro ao finalizar pedido. Verifique os dados.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const cancelarPedido = () => {
+    if (pedido.length > 0 && !window.confirm("Deseja realmente cancelar este pedido?")) {
       return;
     }
     setPedido([]);
     setTotal(0);
     setNome("");
-    setMesa(0);
-    alert("Pedido finalizado com sucesso!");
-  };
-
-  const cancelarPedido = () => {
-    setPedido([]);
-    setTotal(0);
-    setNome("");
-    setMesa(0);
+    setMesa("");
+    setError("");
   };
 
   return (
@@ -66,6 +143,7 @@ export default function Pedidos() {
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
                   required
+                  disabled={loading}
                 />
               </section>
               <section className={s.section_mesa}>
@@ -75,8 +153,10 @@ export default function Pedidos() {
                   type="number"
                   name="mesa"
                   value={mesa}
-                  onChange={(e) => setMesa(Number(e.target.value))}
+                  onChange={(e) => setMesa(e.target.value)}
+                  min="1"
                   required
+                  disabled={loading}
                 />
               </section>
             </div>
@@ -85,13 +165,15 @@ export default function Pedidos() {
               <section className={s.section_produtos}>
                 <button
                   className={s.btn_produtos}
-                  onClick={() => openModal("cafes")}
+                  onClick={() => openModal("CAFES")}
+                  disabled={loading}
                 >
                   Cafés
                 </button>
                 <button
                   className={s.btn_produtos}
-                  onClick={() => openModal("sobremesas")}
+                  onClick={() => openModal("SOBREMESAS")}
+                  disabled={loading}
                 >
                   Sobremesas
                 </button>
@@ -99,13 +181,15 @@ export default function Pedidos() {
               <section className={s.section_produtos}>
                 <button
                   className={s.btn_produtos}
-                  onClick={() => openModal("especiais")}
+                  onClick={() => openModal("ESPECIAIS")}
+                  disabled={loading}
                 >
                   Especiais
                 </button>
                 <button
                   className={s.btn_produtos}
-                  onClick={() => openModal("bebidas Geladas")}
+                  onClick={() => openModal("BEBIDAS_GELADAS")}
+                  disabled={loading}
                 >
                   Bebidas
                 </button>
@@ -113,7 +197,8 @@ export default function Pedidos() {
               <section className={s.section_produtos}>
                 <button
                   className={s.btn_produtos}
-                  onClick={() => openModal("chás")}
+                  onClick={() => openModal("CHAS")}
+                  disabled={loading}
                 >
                   Chás
                 </button>
@@ -122,15 +207,27 @@ export default function Pedidos() {
 
             <div className={s.itens_pedido}>
               <h2>Itens no pedido:</h2>
+              {error && <p className={s.error}>{error}</p>}
               <div className={s.lista_itens}>
-                <ul>
-                  {pedido.map((item, index) => (
-                    <li key={index}>
-                      {item.quantidade}x {item.item} - R${" "}
-                      {item.itemTotal.toFixed(2)}
-                    </li>
-                  ))}
-                </ul>
+                {pedido.length === 0 ? (
+                  <p>Nenhum item adicionado</p>
+                ) : (
+                  <ul>
+                    {pedido.map((item, index) => (
+                      <li key={`${item.menuId}-${index}`}>
+                        {item.quantidade}x {item.item} - R${" "}
+                        {(item.quantidade * item.precoUnitario).toFixed(2)}
+                        <button
+                          onClick={() => removerItem(item.menuId)}
+                          className={s.btn_remover}
+                          disabled={loading}
+                        >
+                          ×
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             </div>
 
@@ -140,10 +237,18 @@ export default function Pedidos() {
                 <h2>R$ {total.toFixed(2)}</h2>
               </section>
               <section className={s.section_total}>
-                <button className={s.btn_total} onClick={finalizarPedido}>
-                  Finalizar Pedido
+                <button
+                  className={s.btn_total}
+                  onClick={finalizarPedido}
+                  disabled={pedido.length === 0 || loading}
+                >
+                  {loading ? "Processando..." : "Finalizar Pedido"}
                 </button>
-                <button className={s.btn_total} onClick={cancelarPedido}>
+                <button
+                  className={s.btn_total}
+                  onClick={cancelarPedido}
+                  disabled={pedido.length === 0 || loading}
+                >
                   Cancelar Pedido
                 </button>
               </section>
@@ -152,15 +257,13 @@ export default function Pedidos() {
         </section>
       </main>
 
-      {/* Renderiza o Modal se isModalVisible for true */}
       {isModalVisible && (
         <Modal
           closeModal={closeModal}
-          menuItems={menuItems[selectedCategory]}
+          category={selectedCategory}
           addItemToPedido={addItemToPedido}
         />
       )}
     </>
   );
 }
-

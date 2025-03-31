@@ -1,67 +1,88 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { fetchItemsByCategory } from "../../services/api";
 import s from "./menu.module.css";
-import menuItems from "../../Mocks/menuItens.json";
 
 export default function Menu() {
-  const [category, setCategory] = useState("cafes");
-  const [mainImage, setMainImage] = useState(
-    menuItems["cafes"][Object.keys(menuItems["cafes"])[0]]
-  );
+  const [category, setCategory] = useState("CAFES");
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const handleCategoryChange = (category) => {
-    setCategory(category);
-    setMainImage(menuItems[category][Object.keys(menuItems[category])[0]]);
-  };
+  useEffect(() => {
+    const loadItems = async () => {
+      try {
+        setLoading(true);
+        const response = await fetchItemsByCategory(category);
+        setItems(response.data);
+        setError(null);
+      } catch (err) {
+        console.error("Erro ao carregar itens:", err);
+        setError("Erro ao carregar itens do menu. Tente novamente.");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const handleItemClick = (item) => {
-    setMainImage(item);
-  };
+    loadItems();
+  }, [category]);
+
+  const categories = [
+    { value: "CAFES", label: "Cafés" },
+    { value: "SOBREMESAS", label: "Sobremesas" },
+    { value: "ESPECIAIS", label: "Especiais" },
+    { value: "BEBIDAS_GELADAS", label: "Bebidas Geladas" },
+    { value: "CHAS", label: "Chás" }
+  ];
 
   return (
     <main className={s.main_menu}>
       <section className={s.section_menu}>
-        <h1 className={s.titulo_menu}>Café do Amanhã</h1>
-        <img className={s.img_menu} src={mainImage.image} alt={mainImage.alt} />
+        <img 
+          src="/logo-cafe.png" 
+          alt="Cafeteria Avante" 
+          className={s.img_menu}
+        />
+        <h1>Menu</h1>
       </section>
-      <section className={s.section_opcoes_menu}>
-        <div className={s.opcoes_menu}>
-          <nav className={s.nav_opcao_menu}>
-            <ul>
-              {[
-                "cafes",
-                "sobremesas",
-                "especiais",
-                "bebidas Geladas",
-                "chás",
-              ].map((cat) => (
-                <li key={cat}>
-                  <button
-                    className={category === cat ? s.active : ""}
-                    onClick={() => handleCategoryChange(cat)}
-                  >
-                    {cat.charAt(0).toUpperCase() + cat.slice(1)}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-        <div className={s.lista_itens_menu}>
-          {Object.keys(menuItems[category]).map((itemKey) => {
-            const item = menuItems[category][itemKey];
-            return (
-              <div
-                className={s.item_menu}
-                key={item.id}
-                onClick={() => handleItemClick(item)}
+
+      <nav className={s.nav_opcao_menu}>
+        <ul>
+          {categories.map((cat) => (
+            <li key={cat.value}>
+              <button
+                className={category === cat.value ? "active" : ""}
+                onClick={() => setCategory(cat.value)}
               >
-                <h3 className={s.titulo_item}>{itemKey}</h3>
-                <p className={s.preco_item}>R$ {item.price.toFixed(2)}</p>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+                {cat.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <div className={s.lista_itens_menu}>
+        {loading ? (
+          <p>Carregando itens...</p>
+        ) : error ? (
+          <p className={s.error}>{error}</p>
+        ) : items.length === 0 ? (
+          <p>Nenhum item disponível nesta categoria</p>
+        ) : (
+          <ul>
+            {items.map((item) => (
+              <li key={item.id} className={s.item_menu}>
+                <div>
+                  <h3>{item.nome}</h3>
+                  <p>{item.descricao}</p>
+                </div>
+                <span className={s.preco_item}>
+                  R$ {Number(item.preco).toFixed(2)}
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </main>
   );
 }
