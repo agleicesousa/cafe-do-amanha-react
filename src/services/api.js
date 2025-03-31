@@ -45,7 +45,7 @@ export const createOrderWithClient = async (orderData) => {
         const data = await response.json();
 
         if (!response.ok) {
-            // Extrai mensagem de erro do backend se disponível
+            
             const errorMsg = data.message || `Erro ${response.status}: ${response.statusText}`;
             throw new Error(errorMsg);
         }
@@ -60,3 +60,29 @@ export const createOrderWithClient = async (orderData) => {
         throw error;
     }
 }
+
+//Funções de CRUD para uso do formulário.
+
+import axios from "axios";
+
+export const createContact = async (contact) => {
+  try {
+    const response = await axios.post(`${API_URL}/contatos`, contact);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao criar contato:", error);
+    throw error;
+  }
+};
+
+// Ler (Read) todos os contatos
+export const getContacts = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/contatos`);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao obter contatos:", error);
+    throw error;
+  }
+};
+
