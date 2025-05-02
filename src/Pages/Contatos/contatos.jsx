@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import s from "./contatos.module.css";
+import { createContact, getContacts } from "./services/api.js";
 
 export default function Contatos() {
   const [formData, setFormData] = useState({
@@ -7,6 +8,8 @@ export default function Contatos() {
     email: "",
     mensagem: "",
   });
+
+  const [contatos, setContatos]=useState([])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,18 +19,31 @@ export default function Contatos() {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Form submitted:", formData);
-    handleFakeSubmit();
+   try{
+    const newContact=await createContact(formData);
+    alert('Mensagem enviada com sucesso!')
+
+    setContatos((prevContacts)=>[...prevContacts, newContact]);
+
+    setFormData({nome:"", email:"", mensagem:""});
+   }catch(error) {
+    alert('Erro ao enviar mensagem.');
+   }
   };
 
-  const handleFakeSubmit = () => {
-    setTimeout(() => {
-      alert("Mensagem enviada com sucesso!");
-      setFormData({ nome: "", email: "", mensagem: "" });
-    }, 2000);
+useEffect(()=>{
+  const fetchContacts=async()=>{
+    try{
+      const data=await getContacts();
+      setContatos(data);
+    }catch(error){
+      console.error('Erro ao carregar contatos', error);
+    }
   };
+  fetchContacts();
+},[]);
 
   return (
     <main className={s.main_body}>
